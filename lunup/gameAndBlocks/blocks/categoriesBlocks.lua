@@ -217,17 +217,17 @@
 -- 			{"miniSceneRemoveCamera", {{{"text",app.words[530]}}}},
 -- 		},
 -- 		["elementInterface"] = {
--- 			{"newWebView", {{{"text", app.words[589]}}, {{"text", "https://example.com"}}, {{"number", 100}}, {{"number", 200}}, {{"number", 400}}, {{"number", 800}}}},
--- 			{"setWebViewX", {{{"text", app.words[589]}}, {{"number", -100}}}},
--- 			{"setWebViewY", {{{"text", app.words[589]}}, {{"number", -200}}}},
--- 			{"insertWebInMiniScene", {{{"text", app.words[589]}}, {{"text", app.words[530]}}}},
--- 			{"setWebViewWidth", {{{"text", app.words[589]}}, {{"number", 200}}}},
--- 			{"setWebViewHeight", {{{"text", app.words[589]}}, {{"number", 300}}}},
--- 			{"setLinkWebView", {{{"text", app.words[589]}}, {{"text", "https://google.com"}}}},
--- 			{"backWebView", {{{"text", app.words[589]}}}},
--- 			{"forwardWebView", {{{"text", app.words[589]}}}},
--- 			{"stopWebView", {{{"text", app.words[589]}}}},
--- 			{"reloadWebView", {{{"text", app.words[589]}}}},
+			-- {"newWebView", {{{"text", app.words[589]}}, {{"text", "https://example.com"}}, {{"number", 100}}, {{"number", 200}}, {{"number", 400}}, {{"number", 800}}}},
+			-- {"setWebViewX", {{{"text", app.words[589]}}, {{"number", -100}}}},
+			-- {"setWebViewY", {{{"text", app.words[589]}}, {{"number", -200}}}},
+			-- {"insertWebInMiniScene", {{{"text", app.words[589]}}, {{"text", app.words[530]}}}},
+			-- {"setWebViewWidth", {{{"text", app.words[589]}}, {{"number", 200}}}},
+			-- {"setWebViewHeight", {{{"text", app.words[589]}}, {{"number", 300}}}},
+			-- {"setLinkWebView", {{{"text", app.words[589]}}, {{"text", "https://google.com"}}}},
+			-- {"backWebView", {{{"text", app.words[589]}}}},
+			-- {"forwardWebView", {{{"text", app.words[589]}}}},
+			-- {"stopWebView", {{{"text", app.words[589]}}}},
+			-- {"reloadWebView", {{{"text", app.words[589]}}}},
 -- 		},
 -- 	}
 -- 	return(myTable)
@@ -244,6 +244,12 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"isSensor", {{{"onOrOff", "off"}}}},
 			{"showHitboxes"},
 			{"hideHitboxes"},
+			{"setGravityScale", {{{"function","-"},{"number", 10}}}},
+			{"setQuareHitbox"},
+			{"setQuareWHHitbox", {{{"number", 100}}, {{"number", 200}}}},
+			{"setCircleHitbox", {{{"number", 200}}}},
+			{"sleepScreenMode",{{{"onOrOff", "on"}}}},
+			{"setTapDelay", {{{"number", 1}}}},
 		},
 		["event"]={
 			{'start'},
@@ -373,9 +379,11 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"blockTouch"},
 			{"blockTouchScreen"},
 			{"showToast", {{{"text", app.words[164]}}}},
+			{"sleepScreenMode",{{{"onOrOff", "on"}}}},
+			{"setTapDelay", {{{"number", 1}}}},
+		},
 		["donat"]={
 		}
-		},
 	}
 	return(myTable)
 end

@@ -361,6 +361,8 @@ _G["allBlocks"] = {
 	["blockTouch"]={"block","blocks/block_gold_1.png", { {{"text",app.words[245]}} }, 109, 88, false},
 	["blockTouchScreen"]={"block","blocks/block_gold_1.png", { {{"text",app.words[246]}} }, 109, 88, false},
 	["showToast"]={"block", "blocks/block_gold_2.png", { {{"text", app.words[453]}}, {{"text", app.words[454]}, {"cell", nil, 5}} }, 109, 142, false},
+	["sleepScreenMode"]={"block", "blocks/block_gold_2.png", { {{"text", app.words[621]}}, {{"onOrOff"}}}, 109, 142, false},
+	["setTapDelay"]={"block", "blocks/block_gold_2.png", { {{"text", app.words[622]}}, {{"cell", nil, 5}}}, 109, 142, false},
 }
 
 local oldallBlocks = {

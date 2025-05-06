@@ -980,6 +980,17 @@ local function make_block(infoBlock, object, images, make_all_formulas, obj_id, 
         add_pcall()
         Lua = Lua.."target.physicsTable.radius, target.physicsTable.outline, target.physicsTable.shape = "..make_all_formulas(infoBlock[2][1], object)..", nil, nil\ntarget:physicsReload()"
         end_pcall()
+    elseif nameBlock == "sleepScreenMode" then
+        add_pcall()
+        Lua = Lua .. "system.setIdleTimer("..(infoBlock[2][1][2]=="on" and "true" or "false")..")"
+        end_pcall()
+    elseif nameBlock == "setTapDelay" then
+        add_pcall()
+        Lua = Lua .. "system.setTapDelay("..make_all_formulas(infoBlock[2][1], object)..")"
+        end_pcall()
+    elseif nameBlock == "newWebView" then
+    elseif nameBlock == "setWebViewX" then
+    elseif nameBlock == "setWebViewY" then
     end
     return Lua
 end

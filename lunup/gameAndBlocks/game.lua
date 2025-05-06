@@ -110,6 +110,7 @@ function _G.scene_run_game(typeBack, paramsBack, isDebug)
     native.setProperty("windowMode", "fullscreen")
     function showOldScene()
         display.setDefault("background", 42/255, 24/255, 72/255)
+        system.setIdleTimer(true)
         plugins.orientation.lock('portrait')
         display.screenOriginX, display.screenOriginY = sOX, sOY
         display.contentWidth, display.contentHeight = dW, dH
@@ -197,7 +198,7 @@ return(isTouch)\nend\n\n\n"
         local yScaleMainGroup = display.contentHeight/options.displayHeight
         Lua = Lua.."\n\n\nfunction scene_"..scene_id.."()\nlocal focusCameraObject = nil\nmainGroup = display.newGroup()\napp.scene = 'game'\napp.scenes[app.scene] = {mainGroup}\nmainGroup.iscg = true\nmainGroup.xScale, mainGroup.yScale = "..tostring(options.orientation~="vertical" and not options.aspectRatio and yScaleMainGroup or xScaleMainGroup)..", "..tostring(options.orientation=="vertical" and  not options.aspectRatio and yScaleMainGroup or xScaleMainGroup).."\nmainGroup.x, mainGroup.y = "..(options.orientation=="vertical" and "CENTER_X, CENTER_Y" or "CENTER_Y, CENTER_X").."\nlocal cameraGroup = display.newGroup()\nlocal stampsGroup = display.newGroup()\ncameraGroup:insert(stampsGroup)\nmainGroup:insert(cameraGroup)\nlocal notCameraGroup = display.newGroup()\nmainGroup:insert(notCameraGroup)"..( not options.aspectRatio and "" or "\nlocal blackRectTop = display.newRect("..(options.orientation=="vertical" and ("0,-"..tostring(options.displayHeight/2)..","..tostring(options.displayWidth)..",display.contentHeight") or ("-"..tostring(options.displayHeight/2)..",0,display.contentHeight,"..tostring(options.displayWidth) ))..")\nblackRectTop.anchor"..(options.orientation=="vertical" and "Y" or "X").." = 1\nblackRectTop:setFillColor(0,0,0)\nmainGroup:insert(blackRectTop)\nlocal blackRectBottom = display.newRect("..(options.orientation=="vertical" and ("0,"..tostring(options.displayHeight/2)..","..tostring(options.displayWidth)..",display.contentHeight") or (tostring(options.displayHeight/2)..",0,display.contentHeight,"..tostring(options.displayWidth) ))..")\nblackRectBottom.anchor"..(options.orientation=="vertical" and "Y" or "X").." = 0\nblackRectBottom:setFillColor(0,0,0)\nmainGroup:insert(blackRectBottom)").."\nobjects = {}\n"
         Lua = Lua.."\nlocal events_changeBackground = {}\nlocal events_function = {}\nlocal function broadcastFunction(nameFunction)\nfor key, value in pairs(objects) do\nfor i=1, #events_function[key][nameFunction] do\nevents_function[key][nameFunction][i](value)\nfor i2=1, #value.clones do\nevents_function[key][nameFunction][i](value.clones[i2])\nend\nend\nend\nend\n"
-        Lua = Lua.."\nmyScene = '"..scene_path.."'\nlocal tableVarShow = {}\nlocal tableNamesClones = {}\nlocal Timers = {}\nlocal Timers_max = 0\n"
+        Lua = Lua.."\nmyScene = '"..scene_path.."'\nlocal tableVarShow = {}\nlocal textFields = {}\nlocal tableNamesClones = {}\nlocal Timers = {}\nlocal Timers_max = 0\n"
         Lua = Lua..[[
     Scenes[]]..scene_id..[[] = {
         objects = objects,
