@@ -321,7 +321,7 @@ elseif (event.target.typeFunction=="rename") then
 			funsP["записать сс сохранение"]("список проектов", plugins.json.encode(projects))
 		end
 	end
-	app.cerberus.newInputLine(app.words[39],app.words[40], isErrorCorrectNameObject, eventTargetMenu.slot.nameProject, endEditingRename)
+	app.stimor.newInputLine(app.words[39],app.words[40], isErrorCorrectNameObject, eventTargetMenu.slot.nameProject, endEditingRename)
 
 
 elseif (event.target.typeFunction=="options") then
@@ -469,17 +469,17 @@ circleTelegramAlpha.xScale, circleTelegramAlpha.yScale, circleTelegramAlpha.alph
 groupScene:insert(circleTelegramAlpha)
 circleTelegram.circleAlpha = circleTelegramAlpha
 
-local circleDiscord = display.newCircle(circlePlus.x, circleTelegram.y-display.contentWidth/8*1.75, display.contentWidth/11.5)
-circleDiscord.fill = {
-	type="image",
-	filename="images/icon_discord.png",
-}
-groupScene:insert(circleDiscord)
-local circleDiscordAlpha = display.newCircle(circleDiscord.x, circleDiscord.y, display.contentWidth/11.5)
-circleDiscordAlpha:setFillColor(1,1,1,0.25)
-circleDiscordAlpha.xScale, circleDiscordAlpha.yScale, circleDiscordAlpha.alpha = 0.75, 0.75, 0
-groupScene:insert(circleDiscordAlpha)
-circleDiscord.circleAlpha = circleDiscordAlpha
+-- local circleDiscord = display.newCircle(circlePlus.x, circleTelegram.y-display.contentWidth/8*1.75, display.contentWidth/11.5)
+-- circleDiscord.fill = {
+-- 	type="image",
+-- 	filename="images/icon_discord.png",
+-- }
+-- groupScene:insert(circleDiscord)
+-- local circleDiscordAlpha = display.newCircle(circleDiscord.x, circleDiscord.y, display.contentWidth/11.5)
+-- circleDiscordAlpha:setFillColor(1,1,1,0.25)
+-- circleDiscordAlpha.xScale, circleDiscordAlpha.yScale, circleDiscordAlpha.alpha = 0.75, 0.75, 0
+-- groupScene:insert(circleDiscordAlpha)
+-- circleDiscord.circleAlpha = circleDiscordAlpha
 
 circlePlusText = display.newText("+",circlePlus.x, circlePlus.y, nil, app.fontSize0*1.75)
 groupScene:insert(circlePlusText)
@@ -841,12 +841,12 @@ local function touchCircleTelegram(event)
 		transition.to(event.target.circleAlpha, {alpha=0, xScale=0.75, yScale=0.75, time=100})
 		display.getCurrentStage():setFocus(event.target, nil)
 
-		system.openURL(event.target == circleTelegram and "https://t.me/pocket_up" or "https://discord.gg/gjJ97yBpRx")
+		system.openURL(event.target == circleTelegram and "https://t.me/pocket_up" or "https://discord.gg/")
 	end
 	return(true)
 end
 circleTelegram:addEventListener("touch", touchCircleTelegram)
-circleDiscord:addEventListener("touch", touchCircleTelegram)
+-- circleDiscord:addEventListener("touch", touchCircleTelegram)
 
 local functionsMenu = {}
 
@@ -1024,7 +1024,7 @@ local function renameButton(event)
 				end
 			end
 		end
-		app.cerberus.newInputLine(app.words[39],app.words[40], checkCorrectName, event.target.nameProject, editingEnd)
+		app.stimor.newInputLine(app.words[39],app.words[40], checkCorrectName, event.target.nameProject, editingEnd)
 
 	end
 end

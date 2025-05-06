@@ -1,6 +1,6 @@
 -- принимает массив строк. пример {"переименовать","копировать","удалить"}
 
-app.cerberus.newVatiants = function (variants, onComplete)
+app.stimor.newVatiants = function (variants, onComplete)
 	local backgroundBlackAlpha = display.newRect(CENTER_X, CENTER_Y, display.contentWidth, display.contentHeight)
 	backgroundBlackAlpha:setFillColor(0,0,0,0.6)
 	app.scenes[app.scene][(app.scene=="scripts" and 1 or #app.scenes[app.scene])]:insert(backgroundBlackAlpha)

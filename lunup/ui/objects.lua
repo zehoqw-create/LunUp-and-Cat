@@ -460,7 +460,7 @@ local function touchMenuSlot(event)
 							funsP["записать сохранение"](pathScene, plugins.json.encode(scenes))
 						end
 					end
-					app.cerberus.newInputLine(app.words[13],app.words[14], isErrorCorrectNameObject, eventTargetMenu.slot.infoScene[1], endEditingRename)
+					app.stimor.newInputLine(app.words[13],app.words[14], isErrorCorrectNameObject, eventTargetMenu.slot.infoScene[1], endEditingRename)
 				end
 
 
@@ -731,7 +731,7 @@ local function touchCirclePlus(event)
 							end
 						end
 
-						app.cerberus.newInputLine(app.words[29],app.words[14], isCorrectValue,correctNameSlot(event.origFileName:match("(.+)%.")), onCompleteObject)
+						app.stimor.newInputLine(app.words[29],app.words[14], isCorrectValue,correctNameSlot(event.origFileName:match("(.+)%.")), onCompleteObject)
 					end
 				end
 				funsP['импортировать изображение'](myFunImport)
@@ -1247,7 +1247,7 @@ local function renameButton(event)
 				end
 			end
 		end
-		app.cerberus.newInputLine(app.words[13],app.words[14], checkCorrectName, event.target.infoScene[1], editingEnd)
+		app.stimor.newInputLine(app.words[13],app.words[14], checkCorrectName, event.target.infoScene[1], editingEnd)
 
 	end
 end
@@ -1376,7 +1376,7 @@ local function funEditingEnd(tableAnswer)
 
 	end
 end
-app.cerberus.newInputLine(app.words[24], app.words[25], checkCorrectName, correctNameSlot(app.words[23]), funEditingEnd)
+app.stimor.newInputLine(app.words[24], app.words[25], checkCorrectName, correctNameSlot(app.words[23]), funEditingEnd)
 end
 
 functionsMenu["startnewScene"] = function ()
@@ -1424,7 +1424,7 @@ while (checkCorrectNameScene(nameScene)~="") do
 	iNumberName=iNumberName+1
 	nameScene = OldNameScene.." ("..iNumberName..")"
 end
-app.cerberus.newInputLine(app.words[26], app.words[27], checkCorrectNameScene, nameScene, endEditingInput)
+app.stimor.newInputLine(app.words[26], app.words[27], checkCorrectNameScene, nameScene, endEditingInput)
 end
 
 --AAAAAAAAAAAAAAAAAAA

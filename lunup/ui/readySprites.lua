@@ -234,7 +234,7 @@ function scene_readySprites( funAddImage )
             end
         else
             onBack()
-            app.cerberus.newBannerQuestion(app.words[550], nil, "", app.words[16])
+            app.stimor.newBannerQuestion(app.words[550], nil, "", app.words[16])
         end
     end)
 

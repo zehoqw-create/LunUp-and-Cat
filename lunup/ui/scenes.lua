@@ -314,7 +314,7 @@ function scene_scenes(idProject, nameProjectScenes)
 								funsP["записать сохранение"](app.idProject.."/scenes", plugins.json.encode(scenes))
 							end
 						end
-						app.cerberus.newInputLine(app.words[31],app.words[27], isErrorCorrectNameObject, eventTargetMenu.slot.infoScene[1], endEditingRename)
+						app.stimor.newInputLine(app.words[31],app.words[27], isErrorCorrectNameObject, eventTargetMenu.slot.infoScene[1], endEditingRename)
 					end
 
 					for i=1, #buttons do
@@ -579,7 +579,7 @@ local function touchCirclePlus(event)
 					end
 				end
 
-				app.cerberus.newInputLine(app.words[26],app.words[27], isCorrectValue,correctNameSlot(app.words[28]), onCompleteObject)
+				app.stimor.newInputLine(app.words[26],app.words[27], isCorrectValue,correctNameSlot(app.words[28]), onCompleteObject)
 			else
 				if isBackScene == 'back' then
 	                app.scenes[app.scene][2].alpha = 0
@@ -940,7 +940,7 @@ local function renameButton(event)
 				end
 			end
 		end
-		app.cerberus.newInputLine(app.words[31],app.words[27], checkCorrectName, event.target.infoScene[1], editingEnd)
+		app.stimor.newInputLine(app.words[31],app.words[27], checkCorrectName, event.target.infoScene[1], editingEnd)
 
 	end
 end

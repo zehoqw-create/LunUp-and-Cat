@@ -102,7 +102,7 @@ function scene_scripts(headerBar, pathObject, infoSceneObjects)
                                 local nameBlock = blocks[block.id][1]
                                 
                                 if (nameBlock=="setPosition" or (nameBlock=="transitionPosition" and event.target.idParameter~=1)) then
-                                    app.cerberus.newVatiants({app.words[607], app.words[608]}, function(answer)
+                                    app.stimor.newVatiants({app.words[607], app.words[608]}, function(answer)
                                         if (answer==1) then
                                             scene_setPosVisual(event.target.block.id, event.target.idParameter,blocks, blocksObjects)
                                         elseif (answer==2) then
@@ -196,7 +196,7 @@ function scene_scripts(headerBar, pathObject, infoSceneObjects)
                                                     return(value.." ("..i..")")
                                                 end
                                             end
-                                            app.cerberus.newInputLine(app.words[26], app.words[27], isCorrectValue, correctValue(app.words[28]), function (answer)
+                                            app.stimor.newInputLine(app.words[26], app.words[27], isCorrectValue, correctValue(app.words[28]), function (answer)
                                                 if (answer.isOk) then
                                                     answer.value = string.gsub(answer.value, (utils.isWin and '\r\n' or '\n'), " ")
                                                     local counter = plugins.json.decode(funsP["получить сохранение"](app.idProject.."/counter"))
@@ -350,7 +350,7 @@ function scene_scripts(headerBar, pathObject, infoSceneObjects)
                                             end
                                         end
                                         if (answer[2]=="new") then
-                                            app.cerberus.newInputLine(app.words[257], app.words[258], isCorrectValue, correctValue(app.words[259]), function(answer)
+                                            app.stimor.newInputLine(app.words[257], app.words[258], isCorrectValue, correctValue(app.words[259]), function(answer)
                                                 if (answer.isOk) then
                                                     answer.value = string.gsub(answer.value, (utils.isWin and '\r\n' or '\n'), " ")
                                                     local oldIdFunction = blocks[block.id][2][event.target.idParameter][2]
@@ -365,7 +365,7 @@ function scene_scripts(headerBar, pathObject, infoSceneObjects)
                                                 end
                                             end)
                                         elseif (answer[2]=="edit") then
-                                            app.cerberus.newInputLine(app.words[260], "", isCorrectValue, objectsParameter[3].text, function(answer)
+                                            app.stimor.newInputLine(app.words[260], "", isCorrectValue, objectsParameter[3].text, function(answer)
                                                 if (answer.isOk) then
                                                     answer.value = string.gsub(answer.value, (utils.isWin and '\r\n' or '\n'), " ")
                                                     local myIdFunction = blocks[block.id][2][event.target.idParameter][2]
@@ -859,7 +859,7 @@ function scene_scripts(headerBar, pathObject, infoSceneObjects)
                                 local function funEditingEnd()
                                     isBackScene = "back"
                                 end
-                                app.cerberus.newBannerQuestion(app.words[524], funEditingEnd)
+                                app.stimor.newBannerQuestion(app.words[524], funEditingEnd)
                             end
                         end
                     end
@@ -2034,7 +2034,7 @@ local function compartmentImages()
                             end
                         end
                         local slot = eventTargetMenu.slot
-                        app.cerberus.newInputLine(app.words[268], app.words[269], isCorrectValue, images[slot.idSlot][1], function(answer)
+                        app.stimor.newInputLine(app.words[268], app.words[269], isCorrectValue, images[slot.idSlot][1], function(answer)
                             if (answer.isOk) then
                                 answer.value = string.gsub(answer.value, (utils.isWin and '\r\n' or '\n'), " ")
                                 slot.nameProject.text = answer.value
@@ -2589,7 +2589,7 @@ local function touchMenuSlot(event)
                         end
                     end
                     local slot = eventTargetMenu.slot
-                    app.cerberus.newInputLine(app.words[270], app.words[271], isCorrectValue, sounds[slot.idSlot][1], function(answer)
+                    app.stimor.newInputLine(app.words[270], app.words[271], isCorrectValue, sounds[slot.idSlot][1], function(answer)
                         if (answer.isOk) then
                             answer.value = string.gsub(answer.value, (utils.isWin and '\r\n' or '\n'), " ")
                             slot.nameProject.text = answer.value

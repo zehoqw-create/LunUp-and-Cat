@@ -1,5 +1,5 @@
 --
--- For more information on config.lua see the Project Configuration Guide at:
+-- For more information on config.Lua see the Project Configuration Guide at:
 -- https://docs.coronalabs.com/guide/basics/configSettings
 --
 

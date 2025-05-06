@@ -110,7 +110,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 					for i=1, #tableObjects do
 						tableNames[i] = tableObjects[i][1]
 					end
-					app.cerberus.newVatiants(tableNames, function(i)
+					app.stimor.newVatiants(tableNames, function(i)
 						if (i~=nil) then
 							addFormulas[1][3] = tableObjects[i][2]
 							table.insert(formulas, cursor, addFormulas[1])
@@ -145,7 +145,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 
 				isBackScene="block"
 
-				local notVisibleRect = app.cerberus.newImage("images/notVisible.png")
+				local notVisibleRect = app.stimor.newImage("images/notVisible.png")
 				notVisibleRect.x, notVisibleRect.y, notVisibleRect.width, notVisibleRect.height = CENTER_X, CENTER_Y, display.contentWidth, display.contentHeight
 
 				local xPosScroll, yPosScroll = scrollProjects:getContentPosition()
@@ -217,7 +217,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 									updateFormulas()
 								end
 							end
-							app.cerberus.newBannerQuestion(app.words[382], onCompleteFun, app.words[289],app.words[383])
+							app.stimor.newBannerQuestion(app.words[382], onCompleteFun, app.words[289],app.words[383])
 						elseif (event.target.typeFunction == "rename") then
 
 							local function isCorrectValue(value)
@@ -249,7 +249,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 									updateFormulas()
 								end
 							end
-							app.cerberus.newInputLine(app.words[6], app.words[250], isCorrectValue, eventTargetMenu.text.text, funEditingEnd)
+							app.stimor.newInputLine(app.words[6], app.words[250], isCorrectValue, eventTargetMenu.text.text, funEditingEnd)
 						end
 
 						for i=1, #buttons do
@@ -339,7 +339,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 					menuRect:setFillColor(72/255, 65/255, 117/255)
 					menuRect.anchorX=1
 					group:insert(menuRect)
-					local menu = app.cerberus.newImage("images/menu.png")
+					local menu = app.stimor.newImage("images/menu.png")
 					menu.x = display.contentWidth-display.contentWidth/20
 					menu:setFillColor(171/255, 219/255, 241/255)
 					menu.yScale = (button.height/menu.height)/2.75

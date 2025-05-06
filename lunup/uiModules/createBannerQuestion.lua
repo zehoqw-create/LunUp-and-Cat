@@ -7,7 +7,7 @@ yes - заменить "да" на другое слово. необязател
 no - заменить "отмена" на другое слово. необязательный параметр ( nil )
 ]]
 local dH = display.actualContentHeight*2
-app.cerberus.newBannerQuestion = function(header, funEditingEnd, no, yes)
+app.stimor.newBannerQuestion = function(header, funEditingEnd, no, yes)
 	if (yes==nil) then
 		yes = app.words[56]
 		no = app.words[55]

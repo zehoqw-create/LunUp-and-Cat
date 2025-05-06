@@ -150,7 +150,7 @@ function scene_setPosVisual(idBlock, idParameter, blocks, blocksObjects)
 				app.scenes["scripts"][1].alpha = 1
 				app.scene = "scripts"
 			end
-			app.cerberus.newBannerQuestion(app.words[609], funEditingEnd, app.words[610], app.words[611])
+			app.stimor.newBannerQuestion(app.words[609], funEditingEnd, app.words[610], app.words[611])
 			isBackScene = "block"
 		end
 	end

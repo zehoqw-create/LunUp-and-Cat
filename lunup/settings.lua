@@ -1,10 +1,19 @@
--- базовые настройки проекта
+
 _G.app = {}
 _G.plugins = {}
 _G.utils = {}
 
+_G.Runtime = Runtime
+_G.native = native
+_G.timer = timer
+
 plugins.utf8 = require( "plugin.utf8" )
+
 plugins.utf8.split = function(text, sep) local result = {} for s in text:gmatch('[^' .. sep .. ']+') do result[#result + 1] = s end return result end
+function string:split(delimiter)
+    return plugins.utf8.split(self, delimiter)
+end
+
 plugins.widget = require("widget")
 plugins.json = require("json")
 plugins.lfs = require("lfs")
@@ -101,12 +110,12 @@ end
 
 display.setStatusBar(display.DefaultStatusBar)
 
-function setFocus(object, id)
+function _G.setFocus(object, id)
 	display.getCurrentStage():setFocus( object, id )
 end
 
-app.cerberus = {}
-app.cerberus.newImage = function(nameFile, directory, x, y)
+app.stimor = {}
+app.stimor.newImage = function(nameFile, directory, x, y)
 	if (directory~=system.DocumentsDirectory) then
 		return display.newImage(nameFile)
 	else
@@ -151,29 +160,16 @@ app.fontSize0 = app.fontSize1*1.125
 app.roundedRect = app.fontSize1/8
 
 utils.select_Scroll = ''
-local function moveScroll(event)
-	-- if event.type == 'scroll' and type(utils.select_Scroll)~='string' then
-	-- 	local x, y = utils.select_Scroll:getContentPosition()
-	-- 	if (event.scrollY < 0 and (y - (event.scrollY /2)) > 0) or (event.scrollY > 0)  then
-	-- 		utils.select_Scroll:scrollToPosition({
-	-- 			y = y + (event.scrollY),
-	-- 			time = 0
-	-- 		})
-	-- 	end
-	-- 	return true
-	-- end
-end
-Runtime:addEventListener("mouse", moveScroll)
-
-function string:split(delimiter)
-    local result = { }
-    local from  = 1
-    local delim_from, delim_to = string.find( self, delimiter, from  )
-    while delim_from do
-      table.insert( result, string.sub( self, from , delim_from-1 ) )
-      from  = delim_to + 1
-      delim_from, delim_to = string.find( self, delimiter, from  )
-    end
-    table.insert( result, string.sub( self, from  ) )
-    return result
-end
+-- local function moveScroll(event)
+-- 	-- if event.type == 'scroll' and type(utils.select_Scroll)~='string' then
+-- 	-- 	local x, y = utils.select_Scroll:getContentPosition()
+-- 	-- 	if (event.scrollY < 0 and (y - (event.scrollY /2)) > 0) or (event.scrollY > 0)  then
+-- 	-- 		utils.select_Scroll:scrollToPosition({
+-- 	-- 			y = y + (event.scrollY),
+-- 	-- 			time = 0
+-- 	-- 		})
+-- 	-- 	end
+-- 	-- 	return true
+-- 	-- end
+-- end
+-- Runtime:addEventListener("mouse", moveScroll)

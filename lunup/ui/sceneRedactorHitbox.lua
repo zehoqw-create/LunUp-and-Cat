@@ -284,7 +284,7 @@ function scene_redactorShapeHitbox(arrayShape, textParameter, images, blocks)
 		elseif (groupInterface.alpha>0.75) then
 			isBackScene = "block"
 			plugins.physics.removeBody(mainImage)
-			app.cerberus.newBannerQuestion(app.words[526], function()
+			app.stimor.newBannerQuestion(app.words[526], function()
 				isBackScene = "back"
 				updatePolygon()
 			end, "", app.words[16])

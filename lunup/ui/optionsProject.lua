@@ -384,7 +384,7 @@ buttonDeleteProject:addEventListener("touch", function(event)
         buttonDeleteProject:setFillColor(213/255, 1/255, 0)
         display.getCurrentStage():setFocus(event.target, nil)
 
-        app.cerberus.newBannerQuestion(app.words[54], function (tableAnswer)
+        app.stimor.newBannerQuestion(app.words[54], function (tableAnswer)
             if(tableAnswer.isOk) then
                 table.remove(allProjects, idSlotProject)
                 funsP["записать сс сохранение"]("список проектов",plugins.json.encode(allProjects))

@@ -9,7 +9,7 @@ funEditingEnd - функция, вызывающаяся когда пользо
 ]]
 
 
-app.cerberus.newInputLine = function(header, placeholder, isCorrectValue, value, funEditingEnd, isCenter)
+app.stimor.newInputLine = function(header, placeholder, isCorrectValue, value, funEditingEnd, isCenter)
 
 local CENTER_X = CENTER_X
 local CENTER_Y = CENTER_Y
