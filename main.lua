@@ -1,4 +1,4 @@
-collectgarbage("setpause", 150)
+collectgarbage("setpause", 2000)
 collectgarbage("setstepmul", 200)
 
 native.setProperty("windowMode", "normal")
@@ -86,7 +86,7 @@ funsP["получить сохранение"] = function(path)
 	end
 end
 
-require("pocketup.settings")
+require("lunup.settings")
 
 
 -- модули, отвечающие за создание конкретных элементов интерфейса
@@ -96,7 +96,7 @@ local listFiles = {
     "loadFormulas","createBlock","bannerVariants"
 }
 for i=1, #listFiles do
-    require("pocketup.uiModules."..listFiles[i])
+    require("lunup.uiModules."..listFiles[i])
 end
 
 -- подключение системных модулей
@@ -105,7 +105,7 @@ listFiles = {
     "funsP"
 }
 for i=1, #listFiles do
-    require("pocketup.modules."..listFiles[i])
+    require("lunup.modules."..listFiles[i])
 end
 
 -- блоки и формулы лунапа и запуск игр
@@ -113,7 +113,7 @@ listFiles = {
     "blocks.structuresBlocks","formulas.allFormulas","game"
 }
 for i=1, #listFiles do
-    require("pocketup.gameAndBlocks."..listFiles[i])
+    require("lunup.gameAndBlocks."..listFiles[i])
 end
 
 -- интерфейс лунапа
@@ -124,5 +124,5 @@ listFiles = {
     "visualPosition"
 }
 for i=1, #listFiles do
-    require("pocketup.ui."..listFiles[i])
+    require("lunup.ui."..listFiles[i])
 end

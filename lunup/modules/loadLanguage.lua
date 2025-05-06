@@ -11,7 +11,7 @@ local path = {
     ['Русский'] = 'ru'
 }
 
-local file = io.open(system.pathForFile("pocketup/languages/"..path[language]..".json"), "r")
+local file = io.open(system.pathForFile("lunup/languages/"..path[language]..".json"), "r")
 local language = plugins.json.decode(file:read("*a"))
 io.close(file)
 return(language)

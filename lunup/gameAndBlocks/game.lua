@@ -1,5 +1,5 @@
 lua = nil
-local makeBlock_other = require("pocketup.gameAndBlocks.launchBlocks_other")
+local makeBlock_other = require("lunup.gameAndBlocks.launchBlocks_other")
 local _Vars = {}
 
 -- принимает все формулы одного из параметров.

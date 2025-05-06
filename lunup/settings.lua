@@ -11,7 +11,7 @@ plugins.lfs = require("lfs")
 plugins.physics = require("physics")
 plugins.orientation = require('plugin.orientation')
 
-app.words = require("pocketup.modules.loadLanguage")
+app.words = require("lunup.modules.loadLanguage")
 
 display.setDefault( 'minTextureFilter', 'nearest' )
 display.setDefault( 'magTextureFilter', 'nearest' )
