@@ -1,6 +1,6 @@
 -- сцена с конкретной категорией блоков
 
-local getCategoriesBlocks = require("pocketup.gameAndBlocks.blocks.categoriesBlocks")
+local getCategoriesBlocks = require("lunup.gameAndBlocks.blocks.categoriesBlocks")
 oldBackScripts = nil
 function scene_categoryScripts(category, nameCategory, funAddBlock)
 

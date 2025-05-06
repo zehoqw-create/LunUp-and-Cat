@@ -60,7 +60,7 @@ function scene_scenes(idProject, nameProjectScenes)
 
 			if (not isMoveSlot) then
 				scrollProjects:takeFocus(event)
-				event.target:setFillColor(0, 71/255, 93/255)
+				event.target:setFillColor(72/255, 65/255, 117/255)
 			else
 				local xS, yS = scrollProjects:getContentPosition()
 				local groupSlot = event.target.myGroup
@@ -84,7 +84,7 @@ function scene_scenes(idProject, nameProjectScenes)
 			end
 
 		elseif (event.phase~="moved") then
-			event.target:setFillColor(0, 71/255, 93/255)
+			event.target:setFillColor(72/255, 65/255, 117/255)
 			display.getCurrentStage():setFocus(event.target, nil)
 
 			if (isTimerMoveSlot and isBackScene=="back") then
@@ -196,7 +196,7 @@ function scene_scenes(idProject, nameProjectScenes)
 						buttonRect.idSlot = iSlot
 						arraySlots[iSlot] = buttonRect
 						buttonRect.anchorX = 0
-						buttonRect:setFillColor(0, 71/255, 93/255)
+						buttonRect:setFillColor(72/255, 65/255, 117/255)
 						groupScene:insert(buttonRect)
 						local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.9, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
 						strokeIcon.strokeWidth = 3
@@ -375,7 +375,7 @@ function scene_scenes(idProject, nameProjectScenes)
 		buttonRect.idSlot = i
 		arraySlots[i] = buttonRect
 		buttonRect.anchorX = 0
-		buttonRect:setFillColor(0, 71/255, 93/255)
+		buttonRect:setFillColor(72/255, 65/255, 117/255)
 		groupScene:insert(buttonRect)
 		local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.9, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
 		strokeIcon.strokeWidth = 3
@@ -516,7 +516,7 @@ local function touchCirclePlus(event)
 						buttonRect.idSlot = iSlot
 						arraySlots[iSlot] = buttonRect
 						buttonRect.anchorX = 0
-						buttonRect:setFillColor(0, 71/255, 93/255)
+						buttonRect:setFillColor(72/255, 65/255, 117/255)
 						groupScene:insert(buttonRect)
 						local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.9, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
 						strokeIcon.strokeWidth = 3
@@ -751,7 +751,7 @@ for i=1, #scenes do
 		buttonRect.idSlot = i
 		arraySlots[i] = buttonRect
 		buttonRect.anchorX = 0
-		buttonRect:setFillColor(0, 71/255, 93/255)
+		buttonRect:setFillColor(72/255, 65/255, 117/255)
 		groupScene:insert(buttonRect)
 		local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.9, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
 		strokeIcon.strokeWidth = 3

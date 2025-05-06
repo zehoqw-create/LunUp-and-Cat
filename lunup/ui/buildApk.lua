@@ -77,7 +77,7 @@ function scene_optionsApk(idProject, nameProject)
     else
         inputPackageName:setTextColor(1,1,1)
     end
-    inputPackageName.placeholder = "com.pocketup.mygame"
+    inputPackageName.placeholder = "com.lunup.mygame"
     groupSceneScroll:insert(inputPackageName)
     local line3 = display.newRect(CENTER_X-display.screenOriginX, inputPackageName.y+inputPackageName.height, display.contentWidth, display.contentWidth/175)
     line3.alpha = 0.25

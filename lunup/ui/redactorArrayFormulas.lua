@@ -96,9 +96,9 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 				end
 				display.getCurrentStage():setFocus(event.target, event.id)
 			elseif (event.phase=="moved") then
-				event.target:setFillColor(0, 71/255, 93/255)
+				event.target:setFillColor(72/255, 65/255, 117/255)
 				if (typeFormulas=="data") then
-					event.target.menu:setFillColor(0, 71/255, 93/255)
+					event.target.menu:setFillColor(72/255, 65/255, 117/255)
 				end
 				scrollProjects:takeFocus(event)
 			else
@@ -119,7 +119,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 							funBackObjects[1]()
 						end
 					end)
-					event.target:setFillColor(0, 71/255, 93/255)
+					event.target:setFillColor(72/255, 65/255, 117/255)
 				else
 					for i=1, #addFormulas do
 						table.insert(formulas, cursor, addFormulas[i])
@@ -324,7 +324,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 				groupSceneScroll:insert(group)
 				local button = display.newRect(0, 0, display.contentWidth, display.contentWidth/8)
 				button.anchorX = 0
-				button:setFillColor(0, 71/255, 93/255)
+				button:setFillColor(72/255, 65/255, 117/255)
 				group:insert(button)
 				button.functions = arrayFunctions[i][2][i2]
 				button:addEventListener("touch", touchFunction)
@@ -336,7 +336,7 @@ function scene_arrayFormulas(headerFormulas, typeFormulas, updateFormulas, formu
 					tableObjectsList[#tableObjectsList+1] = {"button",group}
 					text.text = text.text:sub(2,-2)
 					local menuRect = display.newRect(display.contentWidth, 0, 0, button.height)
-					menuRect:setFillColor(0, 71/255, 93/255)
+					menuRect:setFillColor(72/255, 65/255, 117/255)
 					menuRect.anchorX=1
 					group:insert(menuRect)
 					local menu = app.cerberus.newImage("images/menu.png")

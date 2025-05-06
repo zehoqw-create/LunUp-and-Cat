@@ -55,7 +55,7 @@ function scene_setPosVisual(idBlock, idParameter, blocks, blocksObjects)
 	local image
 	if (true) then
 		if (#images==0) then
-			image = display.newImage("images/pocketup.png")
+			image = display.newImage("images/lunup.png")
 			image.width, image.height = 100, 100
 		elseif (properties==nil) then
 			image = display.newImage(app.idObject.."/image_"..images[1][2]..".png", system.DocumentsDirectory)

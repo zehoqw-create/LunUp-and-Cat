@@ -216,9 +216,9 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         target.fill = {type = \'image\', filename = '"..app.idProject.."/scene_"..scene_id.."/object_"..obj_id.."/image_'..listImages[numberImage]..'.png', baseDir = system.DocumentsDirectory}\
         target.origWidth, target.origHeight = getImageProperties(target.image_path, system.DocumentsDirectory)\
         target.width, target.height = target.origWidth*(target.property_size/100), target.origHeight*(target.property_size/100)\
-        local r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\
-        local g = pocketupFuns.cos(target.property_color+56)/2+0.724\
-        local b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\
+        local r = lunupFuns.sin(target.property_color-22+56)/2+0.724\
+        local g = lunupFuns.cos(target.property_color+56)/2+0.724\
+        local b = lunupFuns.sin(target.property_color+22+56)/2+0.724\
         target:setFillColor(r,g,b)\
         if (target.property_color~=100) then\
             target.fill.effect = 'filter.brightness'\
@@ -242,173 +242,96 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         if (infoBlock[2][1][2]~=nil) then
             lua = lua.."\nlocal target = objects['object_"..infoBlock[2][1][2].."']"
         end
-        lua = lua.."\nlocal myClone\nif (target.parent_obj.countImages>0) then"
+        lua = lua.."\nlocal myClone\
+        if (target.parent_obj.countImages>0) then"
         lua = lua.."\nmyClone = display.newImage(target.image_path, system.DocumentsDirectory, target.x, target.y)"
-        lua = lua.."\nmyClone.image_path = target.image_path\nfor k, v in pairs(target.parent_obj.namesVars) do\nmyClone[v] = 0\nend\nfor k, v in pairs(target.parent_obj.namesLists) do\nmyClone[v] = {}\nend"
+        lua = lua.."\nmyClone.image_path = target.image_path\
+        for k, v in pairs(target.parent_obj.namesVars) do\
+            myClone[v] = 0\
+        end\
+        for k, v in pairs(target.parent_obj.namesLists) do\
+            myClone[v] = {}\
+        end"
         lua = lua.."\nelse"
         lua = lua.."\nmyClone = display.newImage('images/notVisible.png', target.x, target.y)"
         lua = lua.."\nend"
-        lua = lua.."\ntarget.group:insert(myClone)\nmyClone.group = target.group"
-        lua = lua.."\nmyClone:addEventListener('touch', function(event)\nif (event.phase=='began') then\nlocal newIdTouch=globalConstants.touchId+1\nglobalConstants.touchId = newIdTouch\nglobalConstants.keysTouch['touch_'..newIdTouch], globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id], globalConstants.isTouchsId[event.id] = event.id, (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale, true\nglobalConstants.isTouch, globalConstants.touchX, globalConstants.touchY = true, (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\ndisplay.getCurrentStage():setFocus(event.target, event.id)\nevent.target.isTouch = true\nfor key, value in pairs(objects) do\nfor i=1, #events_touchScreen[key] do\nevents_touchScreen[key][i](value)\nfor i2=1, #value.clones do\nevents_touchScreen[key][i](value.clones[i2])\nend\nend\nend\nfor i=1, #myClone.parent_obj.events_touchObject do\nmyClone.parent_obj.events_touchObject[i](event.target)\nend\nelseif (event.phase=='moved') then\
-            globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id] = (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\
-            globalConstants.touchX, globalConstants.touchY = (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\
-            -- for key, value in pairs(objects) do\
-            --     for i=1, #events_movedScreen[key] do\
-            --         events_movedScreen[key][i](value)\
-            --         for i2=1, #value.clones do\
-            --             events_movedScreen[key][i](value.clones[i2])\
-            --         end\
-            --     end\
-            -- end\
-            -- for i=1, #myClone.parent_obj.events_movedObject do\
-            --     myClone.parent_obj.events_movedObject[i](event.target)\
-            -- end\
-        else\ndisplay.getCurrentStage():setFocus(event.target, nil)\nevent.target.isTouch = nil\
+        lua = lua.."\ntarget.group:insert(myClone)\
+        myClone.group = target.group"
+        lua = lua.."\
+        myClone.events_whenTheTruth = target.events_whenTheTruth\
+        for i=1, #myClone.events_whenTheTruth do\
+            myClone.events_whenTheTruth[i](myClone)\
+        end\n"
+        lua = lua.."\nmyClone:addEventListener('touch', function(event)\
+        if (event.phase=='began') then\
+            local newIdTouch=globalConstants.touchId+1\
+            globalConstants.touchId = newIdTouch\
+            globalConstants.keysTouch['touch_'..newIdTouch], globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id], globalConstants.isTouchsId[event.id] = event.id, (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale, true\
+            globalConstants.isTouch, globalConstants.touchX, globalConstants.touchY = true, (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\
+            display.getCurrentStage():setFocus(event.target, event.id)\
+            event.target.isTouch = true\
+            for key, value in pairs(objects) do\
+                for i=1, #events_touchScreen[key] do\
+                    events_touchScreen[key][i](value)\
+                    for i2=1, #value.clones do\
+                        events_touchScreen[key][i](value.clones[i2])\
+                    end\
+                end\
+            end\
+            for i=1, #myClone.parent_obj.events_touchObject do\
+                myClone.parent_obj.events_touchObject[i](event.target)\
+            end\
+        elseif (event.phase=='moved') then\
+            globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id] = (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\nglobalConstants.touchX, globalConstants.touchY = (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\
+            for key, value in pairs(objects) do\
+                for i=1, #events_movedScreen[key] do\
+                    events_movedScreen[key][i](value)\
+                    for i2=1, #value.clones do\
+                        events_movedScreen[key][i](value.clones[i2])\
+                    end\
+                end\
+            end\
+            for i=1, #myClone.parent_obj.events_movedObject do\
+                myClone.parent_obj.events_movedObject[i](event.target)\
+            end\
+        else\
+            display.getCurrentStage():setFocus(event.target, nil)\
+            event.target.isTouch = nil\
             globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id], globalConstants.isTouchsId[event.id] = nil, nil, nil\
             if (pocketupFuns.getCountTouch(globalConstants.isTouchsId)==0) then\
                 globalConstants.keysTouch = {}\
-                globalConstants.isTouch = false\nend\
-                -- for key, value in pairs(objects) do\
-                --     for i=1, #events_onTouchScreen[key] do\
-                --         events_onTouchScreen[key][i](value)\
-                --         for i2=1, #value.clones do\
-                --             events_onTouchScreen[key][i](value.clones[i2])\
-                --         end\
-                --     end\
-                -- end\
-                -- for i=1, #myClone.parent_obj.events_onTouchObject do\
-                --     myClone.parent_obj.events_onTouchObject[i](event.target)\
-                -- end\
+                globalConstants.isTouch = false\
             end\
-            return(true)\
+            for key, value in pairs(objects) do\
+                for i=1, #events_onTouchScreen[key] do\
+                    events_onTouchScreen[key][i](value)\
+                    for i2=1, #value.clones do\
+                        events_onTouchScreen[key][i](value.clones[i2])\
+                    end\
+                end\
+            end\
+            for i=1, #myClone.parent_obj.events_onTouchObject do\
+                myClone.parent_obj.events_onTouchObject[i](event.target)\
+            end\
+        end\
+        return(true)\
         end)"
         lua = lua.."\nmyClone.xScale, myClone.yScale, myClone.alpha, myClone.rotation, myClone.numberImage, myClone.parent_obj = target.xScale, target.yScale, target.alpha, target.rotation, target.numberImage, target.parent_obj"
-        lua = lua.."\nmyClone.fill.effect = 'filter.brightness'\nmyClone.property_brightness = target.property_brightness\nmyClone.fill.effect.intensity = (target.property_brightness)/100-1"
+        lua = lua.."\nmyClone.fill.effect = 'filter.brightness'\
+        myClone.property_brightness = target.property_brightness\
+        myClone.fill.effect.intensity = (target.property_brightness)/100-1"
 
 
-        lua = lua.."\nmyClone.parent_obj = target\ntarget.parent_obj.clones[#target.parent_obj.clones+1] = myClone\nmyClone.idClone, myClone.tableVarShow, myClone.origWidth, myClone.origHeight, myClone.width, myClone.height, myClone.property_size = #target.parent_obj, {}, target.origWidth, target.origHeight, target.width, target.height, target.property_size"
+        lua = lua.."\nmyClone.parent_obj = target.parent_obj or target"
+
+        lua = lua.."\ntarget.parent_obj.clones[#target.parent_obj.clones+1] = myClone\nmyClone.idClone, myClone.tableVarShow, myClone.origWidth, myClone.origHeight, myClone.width, myClone.height, myClone.property_size = #target.parent_obj, {}, target.origWidth, target.origHeight, target.width, target.height, target.property_size"
         lua = lua.."\nmyClone.isVisible = target.isVisible\nmyClone.physicsReload, myClone.physicsType , myClone.physicsTable = target.physicsReload or function(ob) end, target.physicsType or 'static' , plugins.json.decode(plugins.json.encode(target.physicsTable)) or {}\nmyClone:physicsReload()"
         lua = lua.."\nmyClone.property_color = target.property_color\nlocal r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = pocketupFuns.cos(target.property_color+56)/2+0.724\nlocal b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\nmyClone:setFillColor(r,g,b)\nmyClone.touchesObjects = {}"
         lua = lua.."\ntimer.new(0, function()\nmyClone:addEventListener('collision', function(event)\nif (event.phase=='began') then\nevent.target.touchesObjects['obj_'..event.other.parent_obj.idObject] = true\ntimer.new(0, function()\nfor i=1, #myClone.parent_obj.events_collision do\nmyClone.parent_obj.events_collision[i](event.target, event.other.parent_obj.nameObject)\nend\nend)\nelseif (event.phase=='ended') then\nevent.target.touchesObjects['obj_'..event.other.parent_obj.idObject] = nil\ntimer.new(0, function()\nfor i=1, #myClone.parent_obj.events_endedCollision do\nmyClone.parent_obj.events_endedCollision[i](event.target, event.other.parent_obj.nameObject)\nend\nend)\nend\nend)"
-        lua = lua.."\nmyClone.gravityScale, myClone.isSensor = target.gravityScale, target.isSensor"
+        lua = lua.."\nmyClone.gravityScale, myClone.isSensor = target.gravityScale, target.isSensor\n myClone.parent_obj.events_startClone = myClone.parent_obj.events_startClone or (events_startClone or {})"
         lua = lua.."\ntimer.new(0, function()\nfor i=1, #myClone.parent_obj.events_startClone do\nmyClone.parent_obj.events_startClone[i](myClone)\nend\n"
         lua = lua.."\nend) end)"
         end_pcall()
---         add_pcall()
---         if (infoBlock[2][1][2]~=nil) then
---             lua = lua.."local target = objects['object_"..infoBlock[2][1][2].."']\n"
---         end
---         lua = lua..
---         "local myClone\
---             if (target.parent_obj.countImages>0) then\
---                 myClone = display.newImage(target.image_path, system.DocumentsDirectory, target.x, target.y)\
---                 myClone.image_path = target.image_path\
---                 for k, v in pairs(target.parent_obj.namesVars) do\
---                     myClone[v] = 0\
---                 end\
---                 for k, v in pairs(target.parent_obj.namesLists) do\
---                     myClone[v] = {}\
---                 end\
---             else\
---                 myClone = display.newImage('images/notVisible.png', target.x, target.y)\
---             end\
---             target.group:insert(myClone)\
---             myClone.group = target.group\
---             myClone:addEventListener('touch', function(event)\
---             if (event.phase=='began') then\
---                 local newIdTouch=globalConstants.touchId+1\
---                 globalConstants.touchId = newIdTouch\
---                 globalConstants.keysTouch['touch_'..newIdTouch], globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id], globalConstants.isTouchsId[event.id] = event.id, (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale, true\
---                 globalConstants.isTouch, globalConstants.touchX, globalConstants.touchY = true, (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\
---                 display.getCurrentStage():setFocus(event.target, event.id)\
---                 event.target.isTouch = true\
---                 for key, value in pairs(objects) do\
---                     for i=1, #events_touchScreen[key] do\
---                         events_touchScreen[key][i](value)\
---                         for i2=1, #value.clones do\
---                             events_touchScreen[key][i](value.clones[i2])\
---                         end\
---                     end\
---                 end\
---                 for i=1, #myClone.parent_obj.events_touchObject do\
---                     myClone.parent_obj.events_touchObject[i](event.target)\
---                 end\
---             elseif (event.phase=='moved') then\
---                 globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id] = (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\
---                 globalConstants.touchX, globalConstants.touchY = (event.x-mainGroup.x)/mainGroup.xScale, -(event.y-mainGroup.y)/mainGroup.yScale\
---                 -- for key, value in pairs(objects) do\
---                 --     for i=1, #events_movedScreen[key] do\
---                 --         events_movedScreen[key][i](value)\
---                 --         for i2=1, #value.clones do\
---                 --             events_movedScreen[key][i](value.clones[i2])\
---                 --         end\
---                 --     end\
---                 -- end\
---                 -- for i=1, #myClone.parent_obj.events_movedObject do\
---                 --     myClone.parent_obj.events_movedObject[i](event.target)\
---                 -- end\
---             else\
---                 display.getCurrentStage():setFocus(event.target, nil)\
---                 event.target.isTouch = nil\
---                 globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id], globalConstants.isTouchsId[event.id] = nil, nil, nil\nif (pocketupFuns.getCountTouch(globalConstants.isTouchsId)==0) then\
---                 globalConstants.keysTouch = {}\
---                 globalConstants.isTouch = false\
---                 end\
---                 -- for key, value in pairs(objects) do\
---                 --     for i=1, #events_onTouchScreen[key] do\
---                 --         events_onTouchScreen[key][i](value)\
---                 --         for i2=1, #value.clones do\
---                 --             events_onTouchScreen[key][i](value.clones[i2])\
---                 --         end\
---                 --     end\
---                 -- end\
---                 -- for i=1, #myClone.parent_obj.events_onTouchObject do\
---                 --     myClone.parent_obj.events_onTouchObject[i](event.target)\
---                 -- end\
---             end\
---             return(true)\
---             end)\
---             myClone.xScale, myClone.yScale, myClone.alpha, myClone.rotation, myClone.numberImage, myClone.parent_obj = target.xScale, target.yScale, target.alpha, target.rotation, target.numberImage, target.parent_obj\
---             myClone.fill.effect = 'filter.brightness'\
---             myClone.property_brightness = target.property_brightness\
---             myClone.fill.effect.intensity = (target.property_brightness)/100-1\
---             myClone.parent_obj = target\
---             target.parent_obj.clones[#target.parent_obj.clones+1] = myClone\
---             myClone.idClone, myClone.tableVarShow, myClone.origWidth, myClone.origHeight, myClone.width, myClone.height, myClone.property_size = #target.parent_obj, {}, target.origWidth, target.origHeight, target.width, target.height, target.property_size\
---             myClone.isVisible = target.isVisible\
---             myClone.physicsReload, myClone.physicsType , myClone.physicsTable = target.physicsReload or function(ob) end, target.physicsType or 'static' , plugins.json.decode(plugins.json.encode(target.physicsTable)) or {}\
---             myClone:physicsReload()\
---             myClone.property_color = target.property_color\
---             local r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\
---             local g = pocketupFuns.cos(target.property_color+56)/2+0.724\
---             local b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\
---             myClone:setFillColor(r,g,b)\
---             timer.new(0, function()\
---             myClone:addEventListener('collision', function(event)\
---             if (event.phase=='began') then\
---                 event.target.isTouchObject = true\
---                 timer.new(0, function()\
---                     for i=1, #myClone.parent_obj.events_collision do\
---                         myClone.parent_obj.events_collision[i](event.target, event.other.parent_obj.nameObject)\
---                     end\
---                 end)\
---             elseif (event.phase=='ended') then\
---                 event.target.isTouchObject = nil\
---                 timer.new(0, function()\
---                     for i=1, #myClone.parent_obj.events_endedCollision do\
---                         myClone.parent_obj.events_endedCollision[i](event.target, event.other.parent_obj.nameObject)\
---                     end\
---                 end)\
---             end\
---         end)\
---         myClone.gravityScale, myClone.isSensor = target.gravityScale, target.isSensor\
---         timer.new(0, function()\
---             for i=1, #myClone.parent_obj.events_startClone do\
---                 myClone.parent_obj.events_startClone[i](myClone)\
---         end\
---     end)\
--- end)"
---         end_pcall()
     elseif nameBlock == 'deleteClone' then
         add_pcall()
         lua = lua.."if (target) then\
@@ -444,7 +367,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
     elseif nameBlock == 'goSteps' then
         local steps = make_all_formulas(infoBlock[2][1], object)
         add_pcall()
-        lua = lua.."target:translate(pocketupFuns.sin(target.rotation)*("..steps.."),- (pocketupFuns.cos(target.rotation)*"..steps.."))"
+        lua = lua.."target:translate(lunupFuns.sin(target.rotation)*("..steps.."),- (lunupFuns.cos(target.rotation)*"..steps.."))"
         end_pcall()
     elseif nameBlock == 'speedStepsToSecoond' then
         local x = make_all_formulas(infoBlock[2][1], object)
@@ -613,7 +536,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
     elseif nameBlock == 'setRotateToObject' and infoBlock[2][1][2]~=nil then -- ["setRotateToObject",[["objects",7]],"on"]
         add_pcall()
         lua = lua.."if ( objects['object_"..infoBlock[2][1][2].."']~=nil) then\
-            target.rotation = pocketupFuns.atan2(objects['object_"..infoBlock[2][1][2].."'].x - target.x, target.y - objects['object_"..infoBlock[2][1][2].."'].y)\
+            target.rotation = lunupFuns.atan2(objects['object_"..infoBlock[2][1][2].."'].x - target.x, target.y - objects['object_"..infoBlock[2][1][2].."'].y)\
         end\
         if (target.parent_obj==target) then\
             local objectsTable = plugins.json.decode(funsP['получить сохранение']('"..scene_path.."/objects'))\
@@ -635,7 +558,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
             lua = lua..'\ntarget.numberImage = newIdImage\ntarget.image_path = \''..app.idProject..'/scene_'..scene_id..'/object_'..obj_id..'/image_'..image..'.png\'\n'
             lua = lua..'target.fill = {type = \'image\', filename = \''..app.idProject..'/scene_'..scene_id..'/object_'..obj_id..'/image_'..image..'.png\', baseDir = system.DocumentsDirectory}\n'
             lua = lua.."target.origWidth, target.origHeight = getImageProperties(target.image_path, system.DocumentsDirectory)\ntarget.width, target.height = target.origWidth*(target.property_size/100), target.origHeight*(target.property_size/100)\n"
-            lua = lua.."local r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = pocketupFuns.cos(target.property_color+56)/2+0.724\nlocal b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\ntarget:setFillColor(r,g,b)\n"
+            lua = lua.."local r = lunupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = lunupFuns.cos(target.property_color+56)/2+0.724\nlocal b = lunupFuns.sin(target.property_color+22+56)/2+0.724\ntarget:setFillColor(r,g,b)\n"
             lua = lua.."if (target.property_color~=100) then\ntarget.fill.effect = 'filter.brightness'\ntarget.fill.effect.intensity = (target.property_brightness)/100-1\nend\n"
             if (o==1) then
                 lua = lua.."broadcastChangeBackground(listImages[numberImage])\n"
@@ -649,7 +572,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         lua = lua.."target.numberImage = target.numberImage==#listImages and 1 or target.numberImage+1\ntarget.image_path='"..app.idProject.."/scene_"..scene_id.."/object_"..obj_id.."/image_'..listImages[target.numberImage]..'.png'\n"
         lua = lua..'target.fill = {type = \'image\', filename = \''..app.idProject..'/scene_'..scene_id..'/object_'..obj_id..'/image_\'..listImages[target.numberImage]..\'.png\', baseDir = system.DocumentsDirectory}\n'
         lua = lua.."target.origWidth, target.origHeight = getImageProperties(target.image_path, system.DocumentsDirectory)\ntarget.width, target.height = target.origWidth*(target.property_size/100), target.origHeight*(target.property_size/100)\n"
-        lua = lua.."local r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = pocketupFuns.cos(target.property_color+56)/2+0.724\nlocal b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\ntarget:setFillColor(r,g,b)\n"
+        lua = lua.."local r = lunupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = lunupFuns.cos(target.property_color+56)/2+0.724\nlocal b = lunupFuns.sin(target.property_color+22+56)/2+0.724\ntarget:setFillColor(r,g,b)\n"
         lua = lua.."if (target.property_color~=100) then\ntarget.fill.effect = 'filter.brightness'\ntarget.fill.effect.intensity = (target.property_brightness)/100-1\nend\n"
         lua = lua.."\nif (target.parent_obj==target) then\nlocal objectsTable = plugins.json.decode(funsP['получить сохранение']('"..scene_path.."/objects'))\nif (objectsTable[target.infoSaveVisPos][3]==nil) then\nobjectsTable[target.infoSaveVisPos][3] = {}\nend\nobjectsTable[target.infoSaveVisPos][3].path = target.image_path\nfunsP['записать сохранение']('"..scene_path.."/objects', plugins.json.encode(objectsTable))\nend"
         end_pcall()
@@ -658,7 +581,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         lua = lua.."target.numberImage = target.numberImage==1 and #listImages or target.numberImage-1\ntarget.image_path='"..app.idProject.."/scene_"..scene_id.."/object_"..obj_id.."/image_'..listImages[target.numberImage]..'.png'\n"
         lua = lua..'target.fill = {type = \'image\', filename = \''..app.idProject..'/scene_'..scene_id..'/object_'..obj_id..'/image_\'..listImages[target.numberImage]..\'.png\', baseDir = system.DocumentsDirectory}\n'
         lua = lua.."target.origWidth, target.origHeight = getImageProperties(target.image_path, system.DocumentsDirectory)\ntarget.width, target.height = target.origWidth*(target.property_size/100), target.origHeight*(target.property_size/100)\n"
-        lua = lua.."local r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = pocketupFuns.cos(target.property_color+56)/2+0.724\nlocal b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\ntarget:setFillColor(r,g,b)\n"
+        lua = lua.."local r = lunupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = lunupFuns.cos(target.property_color+56)/2+0.724\nlocal b = lunupFuns.sin(target.property_color+22+56)/2+0.724\ntarget:setFillColor(r,g,b)\n"
         lua = lua.."if (target.property_color~=100) then\ntarget.fill.effect = 'filter.brightness'\ntarget.fill.effect.intensity = (target.property_brightness)/100-1\nend\n"
         lua = lua.."\nif (target.parent_obj==target) then\nlocal objectsTable = plugins.json.decode(funsP['получить сохранение']('"..scene_path.."/objects'))\nif (objectsTable[target.infoSaveVisPos][3]==nil) then\nobjectsTable[target.infoSaveVisPos][3] = {}\nend\nobjectsTable[target.infoSaveVisPos][3].path = target.image_path\nfunsP['записать сохранение']('"..scene_path.."/objects', plugins.json.encode(objectsTable))\nend"
         end_pcall()
@@ -670,9 +593,9 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         add_pcall()
         lua = lua..
         "target.property_color = ("..(nameBlock=="setColor" and '' or "target.property_color)+(")..make_all_formulas(infoBlock[2][1],object)..")\
-        local r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\
-        local g = pocketupFuns.cos(target.property_color+56)/2+0.724\
-        local b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\
+        local r = lunupFuns.sin(target.property_color-22+56)/2+0.724\
+        local g = lunupFuns.cos(target.property_color+56)/2+0.724\
+        local b = lunupFuns.sin(target.property_color+22+56)/2+0.724\
         target:setFillColor(r,g,b)"
         end_pcall()
     elseif nameBlock == 'setImageBackgroundToName' and #images>0 and infoBlock[2][1][2]~=nil then
@@ -684,7 +607,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
             lua = lua..'\nbackground.numberImage = newIdImage\nbackground.image_path = background.obj_pathBack..\'/image_'..image..'.png\'\n'
             lua = lua..'background.fill = {type = \'image\', filename = background.image_path, baseDir = system.DocumentsDirectory}\n'
             lua = lua.."background.origWidth, background.origHeight = getImageProperties(background.image_path, system.DocumentsDirectory)\nbackground.width, background.height = background.origWidth*(background.property_size/100), background.origHeight*(background.property_size/100)\n"
-            lua = lua.."local r = pocketupFuns.sin(background.property_color-22+56)/2+0.724\nlocal g = pocketupFuns.cos(background.property_color+56)/2+0.724\nlocal b = pocketupFuns.sin(background.property_color+22+56)/2+0.724\nbackground:setFillColor(r,g,b)\n"
+            lua = lua.."local r = lunupFuns.sin(background.property_color-22+56)/2+0.724\nlocal g = lunupFuns.cos(background.property_color+56)/2+0.724\nlocal b = lunupFuns.sin(background.property_color+22+56)/2+0.724\nbackground:setFillColor(r,g,b)\n"
             lua = lua.."if (background.property_color~=100) then\nbackground.fill.effect = 'filter.brightness'\nbackground.fill.effect.intensity = (background.property_brightness)/100-1\nend\n"
             if (o==1) then
                 lua = lua.."broadcastChangeBackground(listImages[numberImage])\n"
@@ -699,7 +622,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         lua = lua..'\nbackground.numberImage = numberImage\nbackground.image_path = background.obj_pathBack..\'/image_\'..background.listImagesBack[numberImage]..\'.png\'\n'
         lua = lua..'background.fill = {type = \'image\', filename = background.image_path, baseDir = system.DocumentsDirectory}\n'
         lua = lua.."background.origWidth, background.origHeight = getImageProperties(background.image_path, system.DocumentsDirectory)\nbackground.width, background.height = background.origWidth*(background.property_size/100), background.origHeight*(background.property_size/100)\n"
-        lua = lua.."local r = pocketupFuns.sin(background.property_color-22+56)/2+0.724\nlocal g = pocketupFuns.cos(background.property_color+56)/2+0.724\nlocal b = pocketupFuns.sin(background.property_color+22+56)/2+0.724\nbackground:setFillColor(r,g,b)\n"
+        lua = lua.."local r = lunupFuns.sin(background.property_color-22+56)/2+0.724\nlocal g = lunupFuns.cos(background.property_color+56)/2+0.724\nlocal b = lunupFuns.sin(background.property_color+22+56)/2+0.724\nbackground:setFillColor(r,g,b)\n"
         lua = lua.."if (background.property_color~=100) then\nbackground.fill.effect = 'filter.brightness'\nbackground.fill.effect.intensity = (background.property_brightness)/100-1\nend\n"
         if (o==1) then
             lua = lua.."broadcastChangeBackground(listImages[numberImage])\n"
@@ -721,7 +644,7 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         add_pcall()
         lua = lua..'local obj = #tableFeathers+1\nlocal myObj = display.newImage(target.image_path, system.DocumentsDirectory, target.x, target.y)\ntableFeathers[obj] = myObj\nstampsGroup:insert(myObj)\n'
         lua = lua..'myObj.width, myObj.height, myObj.alpha, myObj.rotation, myObj.xScale, myObj.yScale = target.width, target.height, target.alpha, target.rotation, target.xScale, target.yScale\n'
-        lua = lua.."local r = pocketupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = pocketupFuns.cos(target.property_color+56)/2+0.724\nlocal b = pocketupFuns.sin(target.property_color+22+56)/2+0.724\nmyObj:setFillColor(r,g,b)\n"
+        lua = lua.."local r = lunupFuns.sin(target.property_color-22+56)/2+0.724\nlocal g = lunupFuns.cos(target.property_color+56)/2+0.724\nlocal b = lunupFuns.sin(target.property_color+22+56)/2+0.724\nmyObj:setFillColor(r,g,b)\n"
         lua = lua.."if (target.property_color~=100) then\nmyObj.fill.effect = 'filter.brightness'\nmyObj.fill.effect.intensity = (target.property_brightness)/100-1\nend\n"
         end_pcall()
     elseif nameBlock == 'clearPen' then

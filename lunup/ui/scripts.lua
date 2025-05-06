@@ -2106,7 +2106,7 @@ local function compartmentImages()
             if (isTimerMoveSlot) then
                 isTimerMoveSlot = false
                 timer.cancel(timerMoveSlot)
-                event.target:setFillColor(0, 71/255, 93/255)
+                event.target:setFillColor(72/255, 65/255, 117/255)
                 scrollProjects:takeFocus(event)
             end
             if (isMoveSlot) then
@@ -2135,7 +2135,7 @@ local function compartmentImages()
                 end
             end
         else
-            event.target:setFillColor(0, 71/255, 93/255)
+            event.target:setFillColor(72/255, 65/255, 117/255)
             display.getCurrentStage():setFocus(event.target, nil)
             if (isTimerMoveSlot) then
                 isTimerMoveSlot = false
@@ -2163,7 +2163,7 @@ local function compartmentImages()
         buttonRect.idSlot = i
         buttonRect.yGoalPos = group.y
         buttonRect.anchorX = 0
-        buttonRect:setFillColor(0, 71/255, 93/255)
+        buttonRect:setFillColor(72/255, 65/255, 117/255)
         group:insert(buttonRect)
         local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.55, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
         strokeIcon.strokeWidth = 3
@@ -2258,7 +2258,7 @@ local function compartmentImages()
         buttonRect.idSlot = i
         buttonRect.yGoalPos = group.y
         buttonRect.anchorX = 0
-        buttonRect:setFillColor(0, 71/255, 93/255)
+        buttonRect:setFillColor(72/255, 65/255, 117/255)
         group:insert(buttonRect)
         local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.55, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
         strokeIcon.strokeWidth = 3
@@ -2330,7 +2330,7 @@ local function funAddImage()
     buttonRect.idSlot = i
     buttonRect.yGoalPos = group.y
     buttonRect.anchorX = 0
-    buttonRect:setFillColor(0, 71/255, 93/255)
+    buttonRect:setFillColor(72/255, 65/255, 117/255)
     group:insert(buttonRect)
     local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.55, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
     strokeIcon.strokeWidth = 3
@@ -2663,7 +2663,7 @@ local function touchOpenImage(event)
         if (isTimerMoveSlot) then
             isTimerMoveSlot = false
             timer.cancel(timerMoveSlot)
-            event.target:setFillColor(0, 71/255, 93/255)
+            event.target:setFillColor(72/255, 65/255, 117/255)
             scrollProjects:takeFocus(event)
         end
         if (isMoveSlot) then
@@ -2692,7 +2692,7 @@ local function touchOpenImage(event)
             end
         end
     else
-        event.target:setFillColor(0, 71/255, 93/255)
+        event.target:setFillColor(72/255, 65/255, 117/255)
         display.getCurrentStage():setFocus(event.target, nil)
         if (isTimerMoveSlot) then
             isTimerMoveSlot = false
@@ -2718,7 +2718,7 @@ arraySlots[i] = buttonRect
 buttonRect.idSlot = i
 buttonRect.yGoalPos = group.y
 buttonRect.anchorX = 0
-buttonRect:setFillColor(0, 71/255, 93/255)
+buttonRect:setFillColor(72/255, 65/255, 117/255)
 group:insert(buttonRect)
 local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.55, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
 strokeIcon.strokeWidth = 3
@@ -2811,7 +2811,7 @@ funAddSound = function (event)
         buttonRect.idSlot = i
         buttonRect.yGoalPos = group.y
         buttonRect.anchorX = 0
-        buttonRect:setFillColor(0, 71/255, 93/255)
+        buttonRect:setFillColor(72/255, 65/255, 117/255)
         group:insert(buttonRect)
         local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.55, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
         strokeIcon.strokeWidth = 3
