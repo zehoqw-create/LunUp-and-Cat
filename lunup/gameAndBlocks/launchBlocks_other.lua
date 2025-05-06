@@ -144,7 +144,6 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
     elseif nameBlock == 'endIf' then
         lua = lua.."end"
     elseif nameBlock == 'repeat' then
-        wait_type = 'repeat'
         local rep = make_all_formulas(infoBlock[2][1], object)
         lua = lua..
         "for i=1, type("..rep..") == 'number' and "..rep.." or 0, 1 do\
@@ -452,41 +451,6 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
             lua = lua.."plugins.physics.removeBody(target)\ntarget.physicsReload = nil\ntarget.touchesObjects = {}"
         end
         end_pcall()
-        -- add_pcall()
-        -- if (infoBlock[2][1][2]~="noPhysic") then
-        --     lua = lua..
-        --     "target.physicsTable = {outline = graphics.newOutline(10, target.image_path, system.DocumentsDirectory), density=3, friction=0.3, bounce=0.3}\
-        --     target.physicsType = '"..infoBlock[2][1][2].."'\
-        --     target.physicsReload = function(target)\
-        --         local oldTypeRotation = target.isFixedRotation\
-        --         plugins.physics.removeBody(target)\
-        --         plugins.physics.addBody(target, target.physicsType , target.physicsTable)\
-        --         target.isFixedRotation = oldTypeRotation\
-        --     end\
-        --     target:physicsReload()\
-        --     target:addEventListener('collision', function(event)\
-        --     if (event.phase=='began') then\
-        --         event.target.isTouchObject = true\
-        --         timer.new(0, function()\
-        --             for i=1, #events_collision do\
-        --                 events_collision[i](event.target, event.other.parent_obj.nameObject)\
-        --             end\
-        --         end)\
-        --     elseif (event.phase=='ended') then\
-        --         event.target.isTouchObject = nil\
-        --         timer.new(0, function()\
-        --             for i=1, #events_endedCollision do\
-        --                 events_endedCollision[i](event.target, event.other.parent_obj.nameObject)\
-        --             end\
-        --         end)\
-        --     end\
-        --     end)"
-        -- else
-        --     lua = lua..
-        --     "plugins.physics.removeBody(target)\
-        --     target.physicsReload = nil"
-        -- end
-        -- end_pcall()
     elseif nameBlock == 'setGravityAllObjects' then
         local x = make_all_formulas(infoBlock[2][1], object)
         local y = make_all_formulas(infoBlock[2][2], object)
@@ -698,9 +662,6 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
             varText_"..var.." = display.newText(type(var_"..var..")=='boolean' and (var_"..var.." and app.words[373] or app.words[374]) or type(var_"..var..")=='table' and encodeList(var_"..var..") or var_"..var..", "..x..", -"..y..", 'fonts/font_1', 35)\
             varText_"..var..":setFillColor(0, 0, 0)\
             cameraGroup:insert(varText_"..var..")"
-            -- lua = lua..'if (varText_'..infoBlock[2][1][2]..'~=nil and varText_'..infoBlock[2][1][2]..'.text~=nil) then\ndisplay.remove(varText_'..infoBlock[2][1][2]..')\nend\nvarText_'..infoBlock[2][1][2]..' = display.newText(type(var_'..infoBlock[2][1][2]..')=="boolean" and (var_'..infoBlock[2][1][2]..' and app.words[373] or app.words[374]) or type(var_'..infoBlock[2][1][2]..')=="table" and encodeList(var_'..infoBlock[2][1][2]..') or var_'..infoBlock[2][1][2]..', '..x..', -'..y..', "fonts/font_1", 35)\n'
-            -- lua = lua..'varText_'..infoBlock[2][1][2]..':setFillColor(0, 0, 0)'
-            -- lua = lua.."\ncameraGroup:insert(varText_"..infoBlock[2][1][2]..")"
         else
             lua = lua..'if (target.varText_'..infoBlock[2][1][2]..'~=nil and target.varText_'..infoBlock[2][1][2]..'.text~=nil) then\ndisplay.remove(target.varText_'..infoBlock[2][1][2]..')\nend\ntarget.varText_'..infoBlock[2][1][2]..' = display.newText(type(target.var_'..infoBlock[2][1][2]..')=="boolean" and (target.var_'..infoBlock[2][1][2]..' and app.words[373] or app.words[374]) or type(target.var_'..infoBlock[2][1][2]..')=="table" and encodeList(target.var_'..infoBlock[2][1][2]..') or target.var_'..infoBlock[2][1][2]..', '..x..', -'..y..', "fonts/font_1", 38)\n'
             lua = lua..'target.varText_'..infoBlock[2][1][2]..':setFillColor(0, 0, 0)'
@@ -825,12 +786,80 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
             funBackListener2({keyName='deleteBack', phase='up'})\
         end)"
         end_pcall()
+    elseif nameBlock == "continueScene" then
+        if infoBlock[2][1][2]==nil then
+            return ''
+        end
+        local id = infoBlock[2][1][2]
+
+        lua = lua.. "pcall(function()\n"
+        lua = lua..
+        "moveScene()\
+        if not Scenes["..id.."] then\
+            scene_"..infoBlock[2][1][2].."()\
+            return true\
+        end\
+        \
+        local scene = Scenes["..id.."]\
+        Scenes.select = scene\
+        \
+        globalConstants.touchX = scene.globalConstants.touchX\
+        globalConstants.touchY = scene.globalConstants.touchY\
+        globalConstants.isTouch = false\
+        \
+        thread.timers = scene.threads\
+        for i = 1 , #thread.timers do\
+            timer.resume(thread.timers[i])\
+        end\
+        mainGroup = scene.mainGroup\
+        mainGroup.isVisible = true\
+        \
+        \
+        WebViews = scene.WebViews\
+        textFields = scene.textFields\
+        objects = scene.objects\
+        \
+        -- events_touchBack = scene.events_touchBack\
+        -- events_keypressed = scene.events_keypressed\
+        -- events_endKeypressed = scene.events_endKeypressed\
+        events_touchScreen = scene.events_touchScreen\
+        --events_movedScreen = scene.events_movedScreen\
+        events_onTouchScreen = scene.events_onTouchScreen\
+        -- events_whenTheTruth = scene.events_whenTheTruth\
+        playSounds = scene.playSounds\
+        playingSounds = scene.playingSounds\
+        \
+        joysticks = scene.joysticks\
+        Timers = {}\
+        Timers_max = 0\
+        \
+        \
+        for key, value in pairs(objects) do\
+            pcall(function()\
+                transition.resume(value)\
+            end)\
+            pcall(function()\
+                if value.physicsReload then\
+                    value:physicsReload()\
+                end\
+            end)\
+        end\
+        for key, value in pairs(playingSounds) do\
+            audio.resume(playingSounds[key])\
+        end\
+        "
+        lua = lua.."\nend)\
+        removeTheard()\ncoroutine.yield()"
     elseif nameBlock=="runScene" and infoBlock[2][1][2]~=nil then
         add_pcall()
         lua = lua..
-        "deleteScene()\
+        "moveScene()\
+        if Scenes["..infoBlock[2][1][2].."] then\
+            deleteScene("..infoBlock[2][1][2]..")\
+        end\
         scene_"..infoBlock[2][1][2].."()"
         end_pcall()
+        lua = lua .. "removeTheard()\ncoroutine.yield()"
     elseif nameBlock == 'foreach'then
         max_fors = max_fors+1
         if (infoBlock[2][1][2]==nil or infoBlock[2][2][2]==nil ) then

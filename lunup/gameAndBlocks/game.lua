@@ -135,7 +135,8 @@ function scene_run_game(typeBack, paramsBack, isDebug)
     display.setDefault('background', 1, 1, 1)
     local scenes = plugins.json.decode(funsP['получить сохранение'](app.idProject..'/scenes'))
 
-    lua = lua.."local globalConstants = {isTouch=false, touchX=0, touchY=0, touchId=0, keysTouch={}, touchsXId={}, touchsYId={}, isTouchsId={}}"
+    lua = lua.."local globalConstants = {isTouch=false, touchX=0, touchY=0, touchId=0, keysTouch={}, touchsXId={}, touchsYId={}, isTouchsId={}}\
+    local Scenes = {}"
     lua = lua.."\nlocal lunupFuns = {} lunupFuns.sin = function(v) return(math.sin(math.rad(v))) end lunupFuns.cos = function(v) return(math.cos(math.rad(v))) end lunupFuns.tan = function(v) return(math.tan(math.rad(v))) end lunupFuns.asin = function(v) return(math.deg(math.asin(v))) end lunupFuns.acos = function(v) return(math.deg(math.acos(v))) end lunupFuns.atan = function(v) return(math.deg(math.atan(v))) end lunupFuns.atan2 = function(v, v2) return(math.deg(math.atan2(v, v2))) end lunupFuns.roundUp = function(v) return(math.floor(v)+1) end lunupFuns.connect = function(v,v2,v3) return(v..v2..(v3==nil and '' or v3)) end lunupFuns.ternaryExpression = function(condition, answer1, answer2) return(condition and answer1 or answer2) end lunupFuns.regularExpression = function(regular, expression) return(string.match(expression, regular)) end lunupFuns.characterFromText = function(pos, value) return(plugins.utf8.sub(value,pos,pos)) end\nlunupFuns.getLinearVelocity = function(object, xOrY)\nif (object.physicsReload == nil) then\nreturn(0)\nelse\nlocal vx, vy = object:getLinearVelocity()\nreturn(xOrY=='x' and vx or vy)\nend\nend\nlunupFuns.getEllementArray = function(element, array) return(array[element]==nil and '' or array[element]) end lunupFuns.containsElementArray = function(array, value)\nlocal isElement = false\nfor i=1, #array do\nif (array[i]==value) then\nisElement = true\nbreak\nend\nend\nreturn(isElement)\nend\nlunupFuns.getIndexElementArray = function(array, value)\n local index = 0\nfor i=1, #array do\nif (array[i]==value) then\nindex = i\nbreak\nend\nend\nreturn(index)\nend\nlunupFuns.levelingArray = function(array)\nreturn(array)\nend\nlunupFuns.displayPositionColor = function(x,y)\nlocal hexColor\nlocal function onColorSample(event)\nhexColor = utils.rgbToHex({event.r, event.g, event.b})\nreturn(hexColor)\nend\ndisplay.colorSample(CENTER_X+x, CENTER_Y-y, onColorSample)\nreturn(hexColor)\nend"
     --lua = lua.."\nglobalConstants.getTouchXId = function(id)\nlocal answer = globalConstants.touchsXId[globalConstants.keysTouch['touch_'..id]]\nreturn(answer==nil and 0 or answer)\nend\nglobalConstants.getTouchYId = function(id)\nlocal answer = globalConstants.touchsYId[globalConstants.keysTouch['touch_'..id]]\nreturn(answer==nil and 0 or answer)\nend\nlunupFuns.getIsTouchId = function(id)\nreturn(globalConstants.isTouchsId[globalConstants.keysTouch['touch_'..id]]==true)\nend\nlunupFuns.getCountTouch = function ()\nlocal count = 0\nfor k, v in pairs(globalConstants.isTouchsId) do\ncount = count + 1\nend\nreturn(count)\nend\nlunupFuns.jsonEncode = function(table2)\nlocal table = nil pcall(function()\ntable = plugins.json.decode(table2)\nend)\nif (table==nil) then\nreturn('')\nelse\nlocal array = ''\nfor k, v in pairs(table) do\narray = array..(array=='' and '' or '\\n')..v\nend\nreturn(array)\nend\nend\n\n\n"
     lua = lua.."\nglobalConstants.getTouchXId = function(id)\
@@ -200,6 +201,33 @@ return(isTouch)\nend\n\n\n"
         lua = lua.."\n\n\nfunction scene_"..scene_id.."()\nlocal focusCameraObject = nil\nmainGroup = display.newGroup()\napp.scene = 'game'\napp.scenes[app.scene] = {mainGroup}\nmainGroup.iscg = true\nmainGroup.xScale, mainGroup.yScale = "..tostring(options.orientation~="vertical" and not options.aspectRatio and yScaleMainGroup or xScaleMainGroup)..", "..tostring(options.orientation=="vertical" and  not options.aspectRatio and yScaleMainGroup or xScaleMainGroup).."\nmainGroup.x, mainGroup.y = "..(options.orientation=="vertical" and "CENTER_X, CENTER_Y" or "CENTER_Y, CENTER_X").."\nlocal cameraGroup = display.newGroup()\nlocal stampsGroup = display.newGroup()\ncameraGroup:insert(stampsGroup)\nmainGroup:insert(cameraGroup)\nlocal notCameraGroup = display.newGroup()\nmainGroup:insert(notCameraGroup)"..( not options.aspectRatio and "" or "\nlocal blackRectTop = display.newRect("..(options.orientation=="vertical" and ("0,-"..tostring(options.displayHeight/2)..","..tostring(options.displayWidth)..",display.contentHeight") or ("-"..tostring(options.displayHeight/2)..",0,display.contentHeight,"..tostring(options.displayWidth) ))..")\nblackRectTop.anchor"..(options.orientation=="vertical" and "Y" or "X").." = 1\nblackRectTop:setFillColor(0,0,0)\nmainGroup:insert(blackRectTop)\nlocal blackRectBottom = display.newRect("..(options.orientation=="vertical" and ("0,"..tostring(options.displayHeight/2)..","..tostring(options.displayWidth)..",display.contentHeight") or (tostring(options.displayHeight/2)..",0,display.contentHeight,"..tostring(options.displayWidth) ))..")\nblackRectBottom.anchor"..(options.orientation=="vertical" and "Y" or "X").." = 0\nblackRectBottom:setFillColor(0,0,0)\nmainGroup:insert(blackRectBottom)").."\nobjects = {}\n"
         lua = lua.."\nlocal events_changeBackground = {}\nlocal events_function = {}\nlocal function broadcastFunction(nameFunction)\nfor key, value in pairs(objects) do\nfor i=1, #events_function[key][nameFunction] do\nevents_function[key][nameFunction][i](value)\nfor i2=1, #value.clones do\nevents_function[key][nameFunction][i](value.clones[i2])\nend\nend\nend\nend\n"
         lua = lua.."\nmyScene = '"..scene_path.."'\nlocal tableVarShow = {}\nlocal tableNamesClones = {}\nlocal Timers = {}\nlocal Timers_max = 0\n"
+        lua = lua..[[
+    Scenes[]]..scene_id..[[] = {
+        objects = objects,
+        myScene = myScene,
+        globalConstants = globalConstants,
+        objects = objects,
+
+        --events_keypressed = events_keypressed,
+        --events_endKeypressed = events_endKeypressed,
+        --events_touchBack = events_touchBack,
+        events_touchScreen = events_touchScreen,
+        --events_movedScreen = events_movedScreen,
+        events_onTouchScreen = events_onTouchScreen,
+
+        mainGroup = mainGroup,
+        WebViews = WebViews,
+        textFields = textFields,
+
+        playSounds = playSounds,
+        playingSounds = playingSounds,
+        --joysticks = joysticks,
+
+        threadFunRemove = {},
+        id = ]]..scene_id..[[
+    }
+    Scenes.select = Scenes[]]..scene_id..[[]
+        ]]
         local objects = plugins.json.decode(funsP['получить сохранение'](scene_path.."/objects"))
         local functions = plugins.json.decode(funsP['получить сохранение'](scene_path.."/functions"))
         for i=1, #objects do
@@ -569,37 +597,124 @@ local newIdTouch=globalConstants.touchId+1\nglobalConstants.touchId = newIdTouch
 globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id], globalConstants.isTouchsId[event.id] = event.x, event.y
 globalConstants.touchsXId[event.id], globalConstants.touchsYId[event.id], globalConstants.isTouchsId[event.id] = nil, nil, nil\nif (#globalConstants.isTouchsId==0) then\nglobalConstants.keysTouch = {}\nglobalConstants.isTouch = nil\nend
 ]]
-    lua = lua.."\nfunction exitGame()\
-    collectgarbage('collect')\
-    \
-    plugins.physics.setDrawMode('normal')\
-    system.deactivate('multitouch')\
-    plugins.physics.stop()\
-    Runtime:removeEventListener('touch', touchScreenGame)\
-    showOldScene()\
-    end"
-    lua = lua.."\nfunction deleteScene()\
-    plugins.physics.setDrawMode('normal')\
-    removeAllObjects()\
+lua = lua.."\nfunction exitGame()\
+Runtime:removeEventListener('mouse', mouseListener)\
+Runtime:removeEventListener('key', funKeyListener)\
+plugins.physics.setDrawMode('normal')\
+system.deactivate('multitouch')\
+native.setProperty( 'androidSystemUiVisibility', 'default' )\
+plugins.physics.stop()\
+Runtime:removeEventListener('touch', touchScreenGame)\
+showOldScene()\
+end"
+lua = lua..
+"\nfunction deleteScene(id)\
+if not Scenes[id] then\
+    return true\
+end\
+local scene = Scenes[id]\
+local timers = scene.threads\
+for i = 1 , #timers do\
+    timer.cancel(timers[i])\
+    timers[i] = nil\
+end\
+display.remove(scene.mainGroup)\
+for key, value in pairs(scene.playingSounds) do\
+    audio.stop(scene.playingSounds[key])\
+    audio.dispose(scene.playSounds[key])\
+end\
+Scenes[id] = nil\
+scene = nil\
+collectgarbage('collect')\
+end"
+lua = lua..
+"\nfunction deleteAllScenes()\
     timer.cancelAll()\
-    "..(options.orientation=="vertical" and "plugins.orientation.lock('portrait')" or "plugins.orientation.lock('landscape')").."\
-    display.remove(mainGroup)\
+    for key, value in pairs(objects) do\
+        if key ~= 'select' then\
+            display.remove(value.mainGroup)\
+        end\
+    end\
+    audio.stop()\
+    audio.dispose()\
     for key, value in pairs(playingSounds) do\
         audio.stop(playingSounds[key])\
         audio.dispose(playSounds[key])\
     end\
-    playSounds = {}\
-    playingSounds = {}\
-    launchThread = {}\
-    native.setProperty('windowMode', 'normal')\
-    end"
+    removeAllObjects()\
+    transition.cancelAll()\
+    plugins.physics.setDrawMode('normal')\
+    collectgarbage('collect')\
+end"
+lua = lua.."\nfunction moveScene()\
+transition.pauseAll()\
+Scenes.select.globalConstants = {}\
+Scenes.select.globalConstants.touchX = globalConstants.touchX\
+Scenes.select.globalConstants.touchY = globalConstants.touchY\
+\
+Scenes.select.threads = {}\
+for i = 1, #thread.timers do\
+    if thread.timers[i] then\
+        table.insert(Scenes.select.threads, thread.timers[i])\
+    end\
+end\
+thread.timers = {}\
+mainGroup.isVisible = false\
+for key, value in pairs(objects) do\
+    local target = value\
+    pcall(function()\
+        \nif (target.parent_obj==target) then\
+            local objectsTable = plugins.json.decode(funsP['получить сохранение'](myScene..'/objects'))\
+            if (objectsTable[target.infoSaveVisPos][3]==nil) then\
+                objectsTable[target.infoSaveVisPos][3] = {}\
+            end\
+            objectsTable[target.infoSaveVisPos][3].size = target.property_size/100\
+            objectsTable[target.infoSaveVisPos][3].rotation = target.rotation\
+            objectsTable[target.infoSaveVisPos][3].path = target.image_path\
+            funsP['записать сохранение'](myScene..'/objects', plugins.json.encode(objectsTable))\
+        end\
+    end)\
+    pcall(function()\
+        physics.removeBody(target)\
+    end)\
+end\
+plugins.physics.setDrawMode('normal')\
+\
+timer.pauseAll()\
+"..(options.orientation=="vertical" and "plugins.orientation.lock('portrait')" or "plugins.orientation.lock('landscape')")..
+"\
+for key, value in pairs(playingSounds) do\
+    audio.pause(playingSounds[key])\
+    --audio.dispose(playSounds[key])\
+end\
+\
+WebViews = {}\
+textFields = {}\
+objects = {}\
+\
+--events_touchBack = {}\
+--events_keypressed = {}\
+--events_endKeypressed = {}\
+events_touchScreen = {}\
+--events_movedScreen = {}\
+events_onTouchScreen = {}\
+--events_whenTheTruth = {}\
+playSounds = {}\
+playingSounds = {}\
+\
+--joysticks = {}\
+Timers = {}\
+Timers_max = 0\
+native.setProperty('windowMode', 'fullscreen')\
+collectgarbage('collect')\
+end"
     if (isScriptsBack) then
         lua = lua.."\nfunction funBackListener(event)\nif ((event.keyName=='back' or event.keyName=='deleteBack') and event.phase=='up') then\nfor key, value in pairs(objects) do\nfor i=1, #events_touchBack[key] do\nevents_touchBack[key][i](value)\nfor i2=1, #value.clones do\nevents_touchBack[key][i](value.clones[i2])\nend\nend\nend\nend\nreturn(true)\nend\nRuntime:addEventListener('key', funBackListener)"
     else
         -- lua = lua.."\nfunction funBackListener(event)\nif ((event.keyName=='back' or event.keyName=='deleteBack') and event.phase=='up') then\nlocal rect = display.newRect(mainGroup, 0, 0, display.contentWidth, display.contentHeight)\nrect:toBack()\nrect.alpha = 0.004\ndisplay.save(mainGroup,{ filename=myScene..'/icon.png', baseDir=system.DocumentsDirectory, backgroundColor={1,1,1,1}})\nRuntime:removeEventListener('key',funBackListener)\naudio.stop({channel=1})\ndeleteScene()\nexitGame()\nplugins.orientation.lock('portrait')\nend\nreturn(true)\nend\nRuntime:addEventListener('key', funBackListener)"
-        lua = lua.."\nfunction funBackListener(event)\nif ((event.keyName=='back' or event.keyName=='deleteBack') and event.phase=='up') then\n\nlocal rect = display.newImage('images/notVisible.png')\nmainGroup:insert(rect)\nrect.width, rect.height = "..(options.orientation == "vertical" and display.contentWidth or display.contentHeight)..", "..(options.orientation == "vertical" and display.contentHeight or display.contentWidth).."\nrect:toBack()\nrect.alpha = 0.004\ndisplay.save(mainGroup,{ filename=myScene..'/icon.png', baseDir=system.DocumentsDirectory, backgroundColor={1,1,1,1}})\nRuntime:removeEventListener('key',funBackListener)\naudio.stop({channel=1})\ndeleteScene()\nexitGame()\nplugins.orientation.lock('portrait')\nend\nreturn(true)\nend\nRuntime:addEventListener('key', funBackListener)"
+        lua = lua.."\nfunction funBackListener(event)\nif ((event.keyName=='back' or event.keyName=='deleteBack') and event.phase=='up') then\n\nlocal rect = display.newImage('images/notVisible.png')\nmainGroup:insert(rect)\nrect.width, rect.height = "..(options.orientation == "vertical" and display.contentWidth or display.contentHeight)..", "..(options.orientation == "vertical" and display.contentHeight or display.contentWidth).."\nrect:toBack()\nrect.alpha = 0.004\ndisplay.save(mainGroup,{ filename=myScene..'/icon.png', baseDir=system.DocumentsDirectory, backgroundColor={1,1,1,1}})\nRuntime:removeEventListener('key',funBackListener)\naudio.stop({channel=1})\ndeleteAllScenes()\nexitGame()\nplugins.orientation.lock('portrait')\nend\nreturn(true)\nend\nRuntime:addEventListener('key', funBackListener)"
     end
-        lua = lua.."\nfunction funBackListener2(event)\nif ((event.keyName=='back' or event.keyName=='deleteBack') and event.phase=='up') then\nRuntime:removeEventListener('key',funBackListener)\naudio.stop({channel=1})\ndeleteScene()\nexitGame()\nplugins.orientation.lock('portrait')\nend\nend"
+        lua = lua.."\nfunction funBackListener2(event)\nif ((event.keyName=='back' or event.keyName=='deleteBack') and event.phase=='up') then\nRuntime:removeEventListener('key',funBackListener)\naudio.stop({channel=1})\ndeleteAllScenes()\nexitGame()\nplugins.orientation.lock('portrait')\nend\nend"
 
     --lua = lua.."\ntimer.new(100,function()\nif (mainGroup~=nil and mainGroup.x~=nil) then\ndisplay.save(mainGroup,{ filename=myScene..'/icon.png', baseDir=system.DocumentsDirectory, backgroundColor={1,1,1,1}})\nend\nend)\n"
     noremoveAllObjects()
