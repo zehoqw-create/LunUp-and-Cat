@@ -185,9 +185,9 @@
 -- 	["removeAdaptiveSizeDevice"]={"block", "blocks/block_gold_1.png", { {{"text",app.words[481]}} }, 109, 88, false},
 -- 	["createTextField"]={"block", "blocks/block_green_3_6.png", { {{"text", app.words[488]}}, {{"text", app.words[492]..":"}, {"cell",nil,3}}, {{"text", app.words[489]}}, {{"onOrOff"}}, {{"text",app.words[490]..":"}, {"cell", nil, 1.5}, {"text", app.words[491]..":"}, {"cell", nil, 1.5}}, {{"text", app.words[162]}}, {{"variables"}} }, 109, 350, false},
 -- 	["deleteTextField"]={"block", "blocks/block_green_2.png", { {{"text", app.words[506]}}, {{"text", app.words[492]}, {"cell", nil, 3}} }, 109, 142, false},
--- 	["setQuareHitbox"]={"block", "blocks/block_blue_1.png", { {{"text", app.words[519]}} }, 109, 88, false},
--- 	["setQuareWHHitbox"]={"block", "blocks/block_blue_2.png", { {{"text", app.words[519]}}, {{"text", app.words[490]..":"}, {"cell", nil, 1.5}, {"text", app.words[491]..":"}, {"cell", nil, 1.5}} }, 109, 142, false},
--- 	["setCircleHitbox"]={"block", "blocks/block_blue_2.png", { {{"text", app.words[520]}}, {{"text", app.words[521]..":"}, {"cell", nil, 1.5}} }, 109, 142, false},
+	-- ["setQuareHitbox"]={"block", "blocks/block_blue_1.png", { {{"text", app.words[519]}} }, 109, 88, false},
+	-- ["setQuareWHHitbox"]={"block", "blocks/block_blue_2.png", { {{"text", app.words[519]}}, {{"text", app.words[490]..":"}, {"cell", nil, 1.5}, {"text", app.words[491]..":"}, {"cell", nil, 1.5}} }, 109, 142, false},
+	-- ["setCircleHitbox"]={"block", "blocks/block_blue_2.png", { {{"text", app.words[520]}}, {{"text", app.words[521]..":"}, {"cell", nil, 1.5}} }, 109, 142, false},
 -- 	["createMiniScene"]={"block", "blocks/block_yellow_2.png", { {{"text", app.words[528]}}, {{"text", app.words[529]..":"}, {"cell", nil, 3}} }, 109, 142, false},
 -- 	["deleteMiniScene"]={"block", "blocks/block_yellow_2.png", { {{"text",app.words[533]}},{{"text",app.words[529]..":"}, {"cell",nil,3}} }, 109, 142, false},
 -- 	["miniSceneInsertMiniScene"]={"block","blocks/block_yellow_2.png", { {{"text",app.words[534]}, {"cell", nil, 2}}, {{"text", app.words[535]}, {"cell",nil,2}} }, 109, 142, false},
@@ -233,7 +233,7 @@
 --     ["waitIfTrue"]={ {"endWait",{},"on"} }
 -- }
 
-allBlocks = {
+_G["allBlocks"] = {
 	["start"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[57]}} }, 412,154, false},
 	["touchObject"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[76]}} }, 412,154, false},
 	["touchScreen"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[77]}} }, 412,154, false},
@@ -295,6 +295,10 @@ allBlocks = {
 	["setElasticity"]={"block", "blocks/block_blue_1.png", { {{"text",app.words[144]}, {"cell", nil, 1.5}, {"text", "%"}} }, 109,88, false},
 	["setFriction"]={"block", "blocks/block_blue_1.png", { {{"text",app.words[145]}, {"cell", nil, 1.5}, {"text", "%"}} }, 109,88, false},
 	["setTextelCoarseness"]={"block", "blocks/block_blue_1.png", { {{"text",app.words[465]}, {"cell", nil, 1.5}} }, 109, 88, false},
+	["setQuareHitbox"]={"block", "blocks/block_blue_1.png", { {{"text", app.words[519]}} }, 109, 88, false},
+	["setQuareWHHitbox"]={"block", "blocks/block_blue_2.png", { {{"text", app.words[519]}}, {{"text", app.words[490]..":"}, {"cell", nil, 1.5}, {"text", app.words[491]..":"}, {"cell", nil, 1.5}} }, 109, 142, false},
+	["setCircleHitbox"]={"block", "blocks/block_blue_2.png", { {{"text", app.words[520]}}, {{"text", app.words[521]..":"}, {"cell", nil, 1.5}} }, 109, 142, false},
+	["setGravityScale"]={"block", "blocks/block_blue_2.png", { {{"text",app.words[471]}},{{"text", app.words[472]},{"cell", nil, 3}} }, 109, 142, false},
 	["showHitboxes"]={"block", "blocks/block_blue_1.png", { {{"text",app.words[455]}} }, 109, 88, false},
 	["hideHitboxes"]={"block", "blocks/block_blue_1.png", { {{"text",app.words[456]}} }, 109, 88, false},
 
@@ -456,7 +460,7 @@ local oldallBlocks = {
 }
 oldallBlocks = nil
 
-additionallyBlocks = {
+_G["additionallyBlocks"] = {
 	["cycleForever"]={ {"endCycleForever",{},"on"} },
     ["ifElse (2)"]={ {"else",{},"on"}, {"endIf",{},"on"} },
     ["if (2)"]={ {"endIf",{},"on"} },

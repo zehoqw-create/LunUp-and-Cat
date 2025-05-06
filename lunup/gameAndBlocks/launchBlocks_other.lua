@@ -18,7 +18,7 @@ local isEvent = {
     endedCollision=true,
 }
 
-local function make_block(infoBlock, object, images, sounds, index, blocks, level_blocks, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options)
+local function make_block(infoBlock, object, images, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options)
     if infoBlock[3] == 'off' then
         return ''
     end
@@ -964,6 +964,22 @@ local function make_block(infoBlock, object, images, sounds, index, blocks, leve
         lua = lua..
         "removeTheard()\
         coroutine.yield()"
+    elseif nameBlock == "setGravityScale" then
+        add_pcall()
+        lua = lua.."target.gravityScale = tonumber("..make_all_formulas(infoBlock[2][1], object)..", 0)"
+        end_pcall()
+    elseif nameBlock == "setQuareHitbox" then
+        add_pcall()
+        lua = lua.."target.physicsTable.outline, target.physicsTable.shape, target.physicsTable.radius = nil, nil, nil\ntarget:physicsReload()"
+        end_pcall()
+    elseif nameBlock == "setQuareWHHitbox" then
+        add_pcall()
+        lua = lua.."local w = "..make_all_formulas(infoBlock[2][1], object).."/2\nlocal h = "..make_all_formulas(infoBlock[2][2], object).."/2\ntarget.physicsTable.outline, target.physicsTable.radius, target.physicsTable.shape = nil, nil, {-w, -h, -w, h, w, h, w, -h}\ntarget:physicsReload()"
+        end_pcall()
+    elseif nameBlock == "setCircleHitbox" then
+        add_pcall()
+        lua = lua.."target.physicsTable.radius, target.physicsTable.outline, target.physicsTable.shape = "..make_all_formulas(infoBlock[2][1], object)..", nil, nil\ntarget:physicsReload()"
+        end_pcall()
     end
     return lua
 end

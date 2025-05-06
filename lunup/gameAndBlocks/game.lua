@@ -2,11 +2,10 @@ lua = nil
 local makeBlock_other = require("lunup.gameAndBlocks.launchBlocks_other")
 local _Vars = {}
 
--- принимает все формулы одного из параметров.
 local lang = system.getPreference( "locale", "language" )
 local renameFormulas = calculateGameFormulas
 
-function encodeList(event)
+function _G.encodeList(event)
     local answer = ""
     for i=1, #event do
         if (i==1) then
@@ -70,7 +69,7 @@ local isEvent = {
 }
 
 
-function noremoveAllObjects()
+function _G.noremoveAllObjects()
     local stage = display.getCurrentStage()
 
     for i = stage.numChildren, 1, -1 do
@@ -81,7 +80,7 @@ function noremoveAllObjects()
     end
 end
 
-function removeAllObjects()
+function _G.removeAllObjects()
     local stage = display.getCurrentStage()
 
     for i = stage.numChildren, 1, -1 do
@@ -96,10 +95,8 @@ function removeAllObjects()
 end
 
 
-function scene_run_game(typeBack, paramsBack, isDebug)
+function _G.scene_run_game(typeBack, paramsBack, isDebug)
     app.scene="game"
-    wait_type = 'wait'
-    wait_table = {_ends = 0, event = 0}
     local options = plugins.json.decode(funsP['получить сохранение'](app.idProject..'/options'))
 
     if utils.isWin or utils.isSim then
@@ -127,8 +124,8 @@ function scene_run_game(typeBack, paramsBack, isDebug)
             scene_scenes(paramsBack[1], paramsBack[2])
         end
     end
-    max_fors = 0
-    lua = ''
+    _G.max_fors = 0
+    _G.lua = ''
     lua = lua..(options.orientation=="horizontal" and "\nplugins.orientation.lock('landscape')" or "")
     .."\nlocal thread = require('plugins.thread')\nlocal premBlocks = nil\nsystem.activate('multitouch')\nplugins.physics.start(true)\nlocal function getImageProperties(path, dir)\nlocal image = display.newImage(path, dir)\nimage.alpha=0\nlocal width = image.width\nlocal height = image.height\ndisplay.remove(image)\nreturn width, height\nend\n"
     --local groupScene = display.newGroup()
@@ -183,11 +180,11 @@ return(isTouch)\nend\n\n\n"
     --lua = lua.."\nfunction hex2rgb(hexCode)\nif (utils.isCorrectHex(hexCode)) then\nhexCode = string.upper(hexCode)\nassert((#hexCode == 7) or (#hexCode == 9), \"The hex value must be passed in the form of #RRGGBB or #AARRGGBB\" )\nlocal hexCode = hexCode:gsub(\"#\",\"\")\nif (#hexCode == 6) then\nhexCode = \"FF\"..hexCode\nendlocal a, r, g, b = tonumber(\"0x\"..hexCode:sub(1,2))/255, tonumber(\"0x\"..hexCode:sub(3,4))/255, tonumber(\"0x\"..hexCode:sub(5,6))/255, tonumber(\"0x\"..hexCode:sub(7,8))/255\nreturn {r, g, b, a}\nelse\nreturn {0,0,0,1}\nend\nend\n"
     local globalVariables = plugins.json.decode(funsP['получить сохранение'](app.idProject..'/variables'))
     for i=1, #globalVariables do
-            lua = lua..'var_'..globalVariables[i][1].." = 0\n"
+        lua = lua..'var_'..globalVariables[i][1].." = 0\n"
     end
     local globalArrays = plugins.json.decode(funsP['получить сохранение'](app.idProject..'/arrays'))
     for i=1, #globalArrays do
-            lua = lua..'list_'..globalArrays[i][1].." = {}\n"
+        lua = lua..'list_'..globalArrays[i][1].." = {}\n"
     end
     lua = lua.."local myScene\nlocal objects = {}\nlocal events_touchScreen = {}"--[[local events_touchBack = {}\nlocal events_movedScreen = {}\nlocal events_onTouchScreen = {}]].."\nlocal mainGroup\nlocal playSounds = {}\nlocal playingSounds = {}"
 
@@ -480,7 +477,7 @@ return(isTouch)\nend\n\n\n"
                     end
                     oldEventName = block[1]
                 else
-                    lua = lua.."\n"..makeBlock_other(block, 'target', obj_images, obj_sounds, b, blocks, level_blocks, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options)..'\n'
+                    lua = lua.."\n"..makeBlock_other(block, 'target', obj_images, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options)..'\n'
                 end
 
             end
