@@ -331,28 +331,39 @@ funsP["импортировать изображение"] = function(onComplete
     import.show("image/*",system.pathForFile('importfile.png' , system.DocumentsDirectory), isAndroid and onCompleteImportImage or debugOnComplete)
 end
 
-funsP["создать объект"] = function(idProject, pathObject, nameImage)
-	local pathObjectD = system.pathForFile(pathObject, system.DocumentsDirectory)
-	local idProjectD = system.pathForFile(idProject, system.DocumentsDirectory)
-	local counter = plugins.json.decode(funsP["получить сохранение"](idProject.."/counter"))
-	counter[3] = counter[3]+1
-	funsP["записать сохранение"](idProject.."/counter", plugins.json.encode(counter))
-	plugins.lfs.mkdir(pathObjectD)
-	local file = io.open(system.pathForFile("importfile.png", system.DocumentsDirectory), "rb")
-	local contents = file:read("*a")
-	io.close(file)
-	local file = io.open(pathObjectD.."/image_"..counter[3]..".png", "wb")
-	file:write(contents)
-	io.close(file)
-	-- if utils.isSim or utils.isWin then
-	-- 	local table = plugins.utf8.split(nameImage,'\\\\')
-	-- 	nameImage = table[#table]
-	-- end
-	funsP["записать сохранение"](pathObject.."/images", "[[\""..nameImage.."\","..counter[3].."]]")
-	funsP["записать сохранение"](pathObject.."/scripts", "[]")
-	funsP["записать сохранение"](pathObject.."/sounds", "[]")
-	funsP["записать сохранение"](pathObject.."/variables", "[]")
-	funsP["записать сохранение"](pathObject.."/arrays", "[]")
+funsP["создать объект"] = function(idProject, pathObject, nameImage, isEmptyObject, type_)
+    local pathObjectD = system.pathForFile(pathObject, system.DocumentsDirectory)
+    local idProjectD = system.pathForFile(idProject, system.DocumentsDirectory)
+    local counter = plugins.json.decode(funsP["получить сохранение"](idProject.."/counter"))
+
+    counter[3] = counter[3] + 1
+    funsP["записать сохранение"](idProject.."/counter", plugins.json.encode(counter))
+
+    plugins.lfs.mkdir(pathObjectD)
+
+    if not isEmptyObject then
+        local file = io.open(system.pathForFile("importfile.png", system.DocumentsDirectory), "rb")
+        if file then
+            local contents = file:read("*a")
+            io.close(file)
+            local imageFile = io.open(pathObjectD.."/image_"..counter[3]..".png", "wb")
+            if imageFile then
+                imageFile:write(contents)
+                io.close(imageFile)
+            end
+        end
+    
+        funsP["записать сохранение"](pathObject.."/images", "[[\""..(nameImage or "").."\","..counter[3].."]]")
+    else
+
+        funsP["записать сохранение"](pathObject.."/images", "[]")
+    end
+
+    funsP["записать сохранение"](pathObject.."/scripts", "[]")
+    funsP["записать сохранение"](pathObject.."/sounds", "[]")
+    funsP["записать сохранение"](pathObject.."/variables", "[]")
+    funsP["записать сохранение"](pathObject.."/arrays", "[]")
+	funsP["записать сохранение"](pathObject.."/type", type_ or "object")
 end
 
 funsP["копировать проект"] = function(idProject, idCopy)
