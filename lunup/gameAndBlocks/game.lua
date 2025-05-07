@@ -662,7 +662,7 @@ function scene_]]..scene_id..[[()
                             "removeTheard()\
                             end)\
                             local pStart\
-                            pStart, tTheard = thread.start(p)\
+                            pStart, tTheard = thread.start(p, target)\
                             \
                             \n"
                         if (oldEventName=="changeBackground" or oldEventName=="collision" or oldEventName=="endedCollision") then
@@ -775,7 +775,7 @@ function scene_]]..scene_id..[[()
                     "removeTheard()\
                     end)\
                     local pStart\
-                    pStart, tTheard = thread.start(p)\
+                    pStart, tTheard = thread.start(p, target)\
                     \
                 end\n\n"
                     -- Lua = Lua..'\nend)\nend\n\n'
@@ -784,7 +784,7 @@ function scene_]]..scene_id..[[()
                     "removeTheard()\
                     end)\
                     local pStart\
-                    pStart, tTheard = thread.start(p)\
+                    pStart, tTheard = thread.start(p, target)\
                     "
                     Lua = Lua..'\nend\nend\n\n'
                 else
@@ -799,7 +799,7 @@ function scene_]]..scene_id..[[()
                     "removeTheard()\
                     end)\
                     local pStart\
-                    pStart, tTheard = thread.start(p)\
+                    pStart, tTheard = thread.start(p, target)\
                     "
                     Lua = Lua..'\nend\n\n'
                 end
