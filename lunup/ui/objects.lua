@@ -608,13 +608,13 @@ local function touchCirclePlus(event)
 		if (isBackScene=="back") then
 			if (event.target==circlePlus) then
 				isBackScene = "block"
-				local function createNewObject(sceneData, hasImage, type_)
-					local function create(...)
+				local function createNewObject(sceneData, hasImage)
+					local function create()
 						local counter = plugins.json.decode(funsP["получить сохранение"](app.idProject.."/counter"))
 						counter[2] = counter[2] + 1
 						funsP["записать сохранение"](app.idProject.."/counter", plugins.json.encode(counter))
 	
-						funsP["создать объект"](app.idProject, pathObject.."_"..counter[2], sceneData[1]:gsub('\\','\\\\'), not hasImage, type_, ...)
+						funsP["создать объект"](app.idProject, pathObject.."_"..counter[2], sceneData[1]:gsub('\\','\\\\'), not hasImage)
 						scenes[#scenes+1] = {sceneData[1], counter[2]}
 						funsP["записать сохранение"](pathScene, plugins.json.encode(scenes))
 	
@@ -706,21 +706,7 @@ local function touchCirclePlus(event)
 					
 						scrollProjects:setScrollHeight(groupSceneScroll.height + display.contentWidth/1.5)
 					end
-					if type_ == "webView" then
-						app.stimor.newInputLine(
-							app.words[626],
-							app.words[627], 
-							function(value) return string.len(value) == 0 and app.words[18] or "" end,
-							"", 
-							function (event)
-								if (event.isOk) then
-									create(event.value)
-								end
-							end
-						)
-					else
-						create()
-					end
+					create()
 				end
 				
 				local function myFunImport(event)
@@ -767,84 +753,85 @@ local function touchCirclePlus(event)
 						)
 					end
 				end
-				
-				local function createEmptyObject()
-					local function onCompleteObject(event)
-						if (event.isOk) then
-							event.value = string.gsub(event.value, (utils.isWin and '\r\n' or '\n'), " ")
-							createNewObject({event.value, nil}, false, "object")
-						end
-					end
-				
-					app.stimor.newInputLine(
-						app.words[29],
-						app.words[14], 
-						function(value) return string.len(value) == 0 and app.words[18] or "" end,
-						"", 
-						onCompleteObject
-					)
-				end
 
-				local function createWebViewObject()
-					local function onCompleteObject(event)
-						if (event.isOk) then
-							event.value = string.gsub(event.value, (utils.isWin and '\r\n' or '\n'), " ")
-							createNewObject({event.value, nil}, false, "webView")
-						end
-					end
+				funsP['импортировать изображение'](myFunImport)
 				
-					app.stimor.newInputLine(
-						app.words[29],
-						app.words[14], 
-						function(value) return string.len(value) == 0 and app.words[18] or "" end,
-						"", 
-						onCompleteObject
-					)
-				end
+				-- local function createEmptyObject()
+				-- 	local function onCompleteObject(event)
+				-- 		if (event.isOk) then
+				-- 			event.value = string.gsub(event.value, (utils.isWin and '\r\n' or '\n'), " ")
+				-- 			createNewObject({event.value, nil}, false, "object")
+				-- 		end
+				-- 	end
 				
-				local groupSelect = display.newGroup()
-				app.scenes[app.scene][#app.scenes[app.scene]]:insert(groupSelect)
-				local background = display.newRect(groupSelect, 0, 0, 4000, 4000)
-				background:setFillColor(0,0,0,0.6)
-				background:addEventListener("tap", function ()
-					return true
-				end)
+				-- 	app.stimor.newInputLine(
+				-- 		app.words[29],
+				-- 		app.words[14], 
+				-- 		function(value) return string.len(value) == 0 and app.words[18] or "" end,
+				-- 		"", 
+				-- 		onCompleteObject
+				-- 	)
+				-- end
+				-- local function createWebViewObject()
+				-- 	local function onCompleteObject(event)
+				-- 		if (event.isOk) then
+				-- 			event.value = string.gsub(event.value, (utils.isWin and '\r\n' or '\n'), " ")
+				-- 			createNewObject({event.value, nil}, false, "webView")
+				-- 		end
+				-- 	end
 				
-				local background_rect = display.newRect(groupSelect, CENTER_X, CENTER_Y, display.contentWidth - 50, 300)
-				background_rect:setFillColor(27/255, 19/255, 67/255)
+				-- 	app.stimor.newInputLine(
+				-- 		app.words[29],
+				-- 		app.words[14], 
+				-- 		function(value) return string.len(value) == 0 and app.words[18] or "" end,
+				-- 		"", 
+				-- 		onCompleteObject
+				-- 	)
+				-- end
+				
+				-- local groupSelect = display.newGroup()
+				-- app.scenes[app.scene][#app.scenes[app.scene]]:insert(groupSelect)
+				-- local background = display.newRect(groupSelect, 0, 0, 4000, 4000)
+				-- background:setFillColor(0,0,0,0.6)
+				-- background:addEventListener("tap", function ()
+				-- 	return true
+				-- end)
+				
+				-- local background_rect = display.newRect(groupSelect, CENTER_X, CENTER_Y, display.contentWidth - 50, 300)
+				-- background_rect:setFillColor(27/255, 19/255, 67/255)
 
-				local image = display.newRoundedRect(groupSelect, 140, CENTER_Y-100, 200, 70, app.roundedRect)
-				image:setFillColor(57/255, 39/255, 87/255)
-				local imageText = display.newText(groupSelect, app.words[623], image.x, image.y, nil, app.fontSize1)
-				image:addEventListener("tap", function()
-					funsP['импортировать изображение'](myFunImport)
-					display.remove(groupSelect)
-					groupSelect = nil
-					isBackScene = "back"
-					return true
-				end)
+				-- local image = display.newRoundedRect(groupSelect, 140, CENTER_Y-100, 200, 70, app.roundedRect)
+				-- image:setFillColor(57/255, 39/255, 87/255)
+				-- local imageText = display.newText(groupSelect, app.words[623], image.x, image.y, nil, app.fontSize1)
+				-- image:addEventListener("tap", function()
+				-- 	funsP['импортировать изображение'](myFunImport)
+				-- 	display.remove(groupSelect)
+				-- 	groupSelect = nil
+				-- 	isBackScene = "back"
+				-- 	return true
+				-- end)
 
-				local nosprite = display.newRoundedRect(groupSelect, 140 + 210, CENTER_Y - 100, 200, 70, app.roundedRect)
-				nosprite:setFillColor(57/255, 39/255, 87/255)
-				local nospriteText = display.newText(groupSelect, app.words[624], nosprite.x, nosprite.y, nil, app.fontSize1)
-				nosprite:addEventListener("tap", function()
-					createEmptyObject()
-					display.remove(groupSelect)
-					groupSelect = nil
-					isBackScene = "back"
-					return true
-				end)
+				-- local nosprite = display.newRoundedRect(groupSelect, 140 + 210, CENTER_Y - 100, 200, 70, app.roundedRect)
+				-- nosprite:setFillColor(57/255, 39/255, 87/255)
+				-- local nospriteText = display.newText(groupSelect, app.words[624], nosprite.x, nosprite.y, nil, app.fontSize1)
+				-- nosprite:addEventListener("tap", function()
+				-- 	createEmptyObject()
+				-- 	display.remove(groupSelect)
+				-- 	groupSelect = nil
+				-- 	isBackScene = "back"
+				-- 	return true
+				-- end)
 
-				local webView = display.newRoundedRect(groupSelect, 140, CENTER_Y - 100 + 80, 200, 70, app.roundedRect)
-				webView:setFillColor(57/255, 39/255, 87/255)
-				local webViewText = display.newText(groupSelect, app.words[625], webView.x, webView.y, nil, app.fontSize1)
-				webView:addEventListener("tap", function()
-					createWebViewObject()
-					display.remove(groupSelect)
-					groupSelect = nil
-					isBackScene = "back"
-					return true
-				end)
+				-- local webView = display.newRoundedRect(groupSelect, 140, CENTER_Y - 100 + 80, 200, 70, app.roundedRect)
+				-- webView:setFillColor(57/255, 39/255, 87/255)
+				-- local webViewText = display.newText(groupSelect, app.words[625], webView.x, webView.y, nil, app.fontSize1)
+				-- webView:addEventListener("tap", function()
+				-- 	createWebViewObject()
+				-- 	display.remove(groupSelect)
+				-- 	groupSelect = nil
+				-- 	isBackScene = "back"
+				-- 	return true
+				-- end)
 			else
 				if isBackScene == 'back' then
 					app.scenes[app.scene][2].alpha = 0

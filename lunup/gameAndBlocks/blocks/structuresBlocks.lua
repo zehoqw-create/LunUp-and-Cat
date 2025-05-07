@@ -234,17 +234,25 @@
 -- }
 
 _G["allBlocks"] = {
+	["keypressed"] = {"event", "blocks/event_brown_2.png", {{{"text",app.words[623]}},{{"variables",nil}}},411,206, false},
+	["endKeypressed"] = {"event", "blocks/event_brown_2.png", {{{"text",app.words[624]}},{{"variables",nil}}},411,206, false},
 	["start"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[57]}} }, 412,154, false},
 	["touchObject"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[76]}} }, 412,154, false},
+	["onTouchObject"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[459]}} }, 412,154, false},
+	["movedObject"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[460]}} }, 412,154, false},
+	["movedScreen"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[461]}} }, 412,154, false},
+	["onTouchScreen"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[462]}} }, 412,154, false},
+	["touchBack"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[463]}} }, 412,154, false},
+	["endedCollision"]={"event","blocks/event_blue_2.png",{ {{"text",app.words[464]}}, {{"objects",nil}} }, 411, 206, false},
 	["touchScreen"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[77]}} }, 412,154, false},
 	["function"]={"event","blocks/event_brown_2.png",{ {{"text",app.words[78]}}, {{"function",nil}} }, 411, 206, false},
 	["broadcastFunction"]={"block","blocks/block_orange_2.png",{ {{"text",app.words[80]}}, {{"function",nil}} }, 109, 142, false},
 	["collision"]={"event","blocks/event_blue_2.png",{ {{"text",app.words[84]}}, {{"objects",nil}} }, 411, 206, false},
-	["endedCollision"]={"event","blocks/event_blue_2.png",{ {{"text",app.words[464]}}, {{"objects",nil}} }, 411, 206, false},
 	["changeBackground"]={"event","blocks/event_brown_2.png",{ {{"text",app.words[86]}}, {{"backgrounds",nil}} }, 411, 206, false},
 	["startClone"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[88]}} }, 412,154, false},
 	["clone"]={"block","blocks/block_orange_2.png",{ {{"text",app.words[89]}},{{"objects",nil}} }, 109,142, false},
 	["deleteClone"]={"block","blocks/block_orange_1.png",{ {{"text",app.words[91]}} }, 109,88, false},
+	["whenTheTruth"]={"event","blocks/event_brown_1.png",{ {{"text",app.words[82]}, {"cell",nil, 1.5}, {"text", app.words[83]}} }, 412,154, false},
 
 	["wait"]={"block","blocks/block_orange_1.png",{ {{"text",app.words[92]},{"cell",nil,1.5},{"text",app.words[93]}} }, 109,88, false},
 	["commentary"]={"block","blocks/block_orange_1.png",{ {{"text",app.words[94]},{"cell",nil,4.5}} }, 109,88, false},
@@ -301,6 +309,7 @@ _G["allBlocks"] = {
 	["setGravityScale"]={"block", "blocks/block_blue_2.png", { {{"text",app.words[471]}},{{"text", app.words[472]},{"cell", nil, 3}} }, 109, 142, false},
 	["showHitboxes"]={"block", "blocks/block_blue_1.png", { {{"text",app.words[455]}} }, 109, 88, false},
 	["hideHitboxes"]={"block", "blocks/block_blue_1.png", { {{"text",app.words[456]}} }, 109, 88, false},
+	["setLayer"]={"block", "blocks/block_blue_1.png", { {{"text", app.words[551]}, {"cell", nil, 1.5}} }, 109, 88, false},
 
 	["playSound"]={"block", "blocks/block_violet_2.png", { {{"text",app.words[146]}}, {{"sounds", nil, 1.5}} }, 109,142, false},
 	["playSoundAndWait"]={"block", "blocks/block_violet_2.png", { {{"text",app.words[618]}}, {{"sounds", nil, 1.5}}}, 109,142, false},
@@ -446,7 +455,6 @@ local oldallBlocks = {
 	["editRotationMiniScene"]={"block", "blocks/block_yellow_3.png", { {{"text", app.words[546]}}, {{"text", app.words[529]..":"}, {"cell", nil, 3}}, {{"text", app.words[338]..":"}, {"cell", nil, 1.5},{"text","°"}} }, 109, 188, false},
 	["setAlphaMiniScene"]={"block", "blocks/block_yellow_3.png", { {{"text", app.words[547]}}, {{"text", app.words[529]..":"}, {"cell", nil, 3}}, {{"text", app.words[328]..":"}, {"cell", nil, 1.5},{"text","%"}} }, 109, 188, false},
 	["editAlphaMiniScene"]={"block", "blocks/block_yellow_3.png", { {{"text", app.words[548]}}, {{"text", app.words[529]..":"}, {"cell", nil, 3}}, {{"text", app.words[328]..":"}, {"cell", nil, 1.5},{"text","%"}} }, 109, 188, false},
-	["setLayer"]={"block", "blocks/block_blue_1.png", { {{"text", app.words[551]}, {"cell", nil, 1.5}} }, 109, 88, false},
 	["newWebView"]={"block", "blocks/block_pink_3_5.png", {{{"text", app.words[588]}},{{"text", app.words[583]..":"}, {"cell", nil, 1.5}, {"text",app.words[590]..":"}, {"cell", nil, 1.5}}, {{"text", app.words[59]..":"}, {"cell", nil, 1.5}, {"text", app.words[60]..":"}, {'cell', nil, 1.5}}, {{"text", app.words[490]..":"}, {"cell", nil, 1.5}, {"text", app.words[491]..":"}, {'cell', nil, 1.5}}}, 109, 250, false},
 	["setWebViewX"]={"block", "blocks/block_pink_2.png", {{{"text", app.words[591]}}, {{"text", app.words[583]..":"}, {"cell", nil, 1.5}, {"text", app.words[59]..":"}, {"cell", nil, 1.5}}}, 109, 142, false},
 	["setWebViewY"]={"block", "blocks/block_pink_2.png", {{{"text", app.words[592]}}, {{"text", app.words[583]..":"}, {"cell", nil, 1.5}, {"text", app.words[60]..":"}, {"cell", nil, 1.5}}}, 109, 142, false},
