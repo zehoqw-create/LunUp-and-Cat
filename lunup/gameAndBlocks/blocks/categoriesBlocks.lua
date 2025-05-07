@@ -345,6 +345,7 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"editAlpha",{{{"number",25}}}},
 			{"setBrightness",{{{"number",50}}}},
 			{"editBrightness",{{{"number",25}}}},
+			{"ask",{{{"text",app.words[161]}}, {localityVariable, nameVariable}, {"function",nameFunction} }},
 			{"setColor", {{{"number",0}}}},
 			{"editColor", {{{"number",25}}}},
 			{"focusCameraToObject", {{{"number",0}},{{"number",0}}}},

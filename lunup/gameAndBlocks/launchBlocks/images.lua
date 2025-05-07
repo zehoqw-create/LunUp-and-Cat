@@ -88,62 +88,62 @@ return {
         return "target.isVisible = true"
     end,
 
-    -- ask = function (infoBlock, object, images, sounds, make_all_formulas)
-    --     if infoBlock[2][2][2]~=nil and infoBlock[2][3][2]~=nil then
-    --         local lua = "pcall(function()\n"
-    --         lua = lua.."local function funEditingEnd(event)\
-    --             "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."var_"..infoBlock[2][2][2].." = event.isOk and event.value or ''\
-    --             if ("..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2].." ~= nil and "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2]..".x ~= nil) then\
-    --                 "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2]..".text = event.isOk and event.value or ''\
-    --             end\
-    --             local key = target.parent_obj.nameObject\
-    --             local value = target\
-    --             for i=1, #events_function[key]['fun_"..infoBlock[2][3][2].."'] do\
-    --                 events_function[key]['fun_"..infoBlock[2][3][2].."'][i](value)\
-    --             end\
-    --         end\
-    --         local background = display.newRect(mainGroup, 0, 0, 4000, 2000)\
-    --         background:setFillColor(0,0,0,0.6)\
-    --         \
-    --         local textField = native.newTextBox(0, -50, 400,80)\
-    --         textField.text = ''\
-    --         textField:setTextColor(0,0,0,1)\
-    --         textField.size = 30\
-    --         textField.isEditable = true\
-    --         mainGroup:insert(textField)\
-    --         \
-    --         local ok = display.newRect(mainGroup, 120, 50, 200, 70)\
-    --         ok:setFillColor(0,0,0,0.8)\
-    --         local okText = display.newText(mainGroup, 'Принять', ok.x, ok.y, nil, app.fontSize1)\
-    --         local back = display.newRect(mainGroup, -120, 50, 200, 70)\
-    --         back:setFillColor(0,0,0,0.8)\
-    --         local backText = display.newText(mainGroup, 'Отмена', back.x, back.y, nil, app.fontSize1)\
-    --         local headerText = display.newText(mainGroup, "..make_all_formulas(infoBlock[2][1], object)..", 0, -200, nil, app.fontSize1)\
-    --         local remove = function()\
-    --             display.remove(background)\
-    --             display.remove(textField)\
-    --             display.remove(ok)\
-    --             display.remove(okText)\
-    --             display.remove(back)\
-    --             display.remove(backText)\
-    --             display.remove(headerText)\
-    --         end\
-    --         back:addEventListener('tap', function()\
-    --             remove()\
-    --         end)\
-    --         ok:addEventListener('tap', function()\
-    --             funEditingEnd(\
-    --             {\
-    --             ['isOk']=true,\
-    --             ['value']=textField.text,\
-    --             }\
-    --         )\
-    --             remove()\
-    --         end)\
-    --         --app.stimor.newInputLine("..make_all_formulas(infoBlock[2][1], object)..", '', nil, '', funEditingEnd)"
-    --         return lua.."\nend)"
-    --     end
-    -- end,
+    ask = function (infoBlock, object, images, sounds, make_all_formulas)
+        if infoBlock[2][2][2]~=nil and infoBlock[2][3][2]~=nil then
+            local lua = "pcall(function()\n"
+            lua = lua.."local function funEditingEnd(event)\
+                "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."var_"..infoBlock[2][2][2].." = event.isOk and event.value or ''\
+                if ("..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2].." ~= nil and "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2]..".x ~= nil) then\
+                    "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2]..".text = event.isOk and event.value or ''\
+                end\
+                local key = target.parent_obj.nameObject\
+                local value = target\
+                for i=1, #events_function[key]['fun_"..infoBlock[2][3][2].."'] do\
+                    events_function[key]['fun_"..infoBlock[2][3][2].."'][i](value)\
+                end\
+            end\
+            local background = display.newRect(mainGroup, 0, 0, 4000, 2000)\
+            background:setFillColor(0,0,0,0.6)\
+            \
+            local textField = native.newTextBox(0, -50, 400,80)\
+            textField.text = ''\
+            textField:setTextColor(0,0,0,1)\
+            textField.size = 30\
+            textField.isEditable = true\
+            mainGroup:insert(textField)\
+            \
+            local ok = display.newRect(mainGroup, 120, 50, 200, 70)\
+            ok:setFillColor(0,0,0,0.8)\
+            local okText = display.newText(mainGroup, 'Принять', ok.x, ok.y, nil, app.fontSize1)\
+            local back = display.newRect(mainGroup, -120, 50, 200, 70)\
+            back:setFillColor(0,0,0,0.8)\
+            local backText = display.newText(mainGroup, 'Отмена', back.x, back.y, nil, app.fontSize1)\
+            local headerText = display.newText(mainGroup, "..make_all_formulas(infoBlock[2][1], object)..", 0, -200, nil, app.fontSize1)\
+            local remove = function()\
+                display.remove(background)\
+                display.remove(textField)\
+                display.remove(ok)\
+                display.remove(okText)\
+                display.remove(back)\
+                display.remove(backText)\
+                display.remove(headerText)\
+            end\
+            back:addEventListener('tap', function()\
+                remove()\
+            end)\
+            ok:addEventListener('tap', function()\
+                funEditingEnd(\
+                {\
+                ['isOk']=true,\
+                ['value']=textField.text,\
+                }\
+            )\
+                remove()\
+            end)\
+            --app.stimor.newInputLine("..make_all_formulas(infoBlock[2][1], object)..", '', nil, '', funEditingEnd)"
+            return lua.."\nend)"
+        end
+    end,
 
     setAlpha = function (infoBlock, object, images, sounds, make_all_formulas)
         local lua = "pcall(function()\n"
