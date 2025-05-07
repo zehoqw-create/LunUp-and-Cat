@@ -260,6 +260,8 @@ return(isTouch)\nend\n\n\n"
             local obj_path = scene_path.."/object_"..obj_id
             local obj_images = plugins.json.decode(funsP['получить сохранение'](obj_path.."/images"))
             local obj_sounds = plugins.json.decode(funsP['получить сохранение'](obj_path.."/sounds"))
+
+            local obj_type = funsP['получить сохранение'](obj_path.."/type")
             Lua = Lua.."\nlocal objectsParticles = {}"
             Lua = Lua.."\nlocal listImages = {"
             for i=1, #obj_images do

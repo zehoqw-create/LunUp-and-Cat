@@ -609,101 +609,118 @@ local function touchCirclePlus(event)
 			if (event.target==circlePlus) then
 				isBackScene = "block"
 				local function createNewObject(sceneData, hasImage, type_)
-					local counter = plugins.json.decode(funsP["получить сохранение"](app.idProject.."/counter"))
-					counter[2] = counter[2] + 1
-					funsP["записать сохранение"](app.idProject.."/counter", plugins.json.encode(counter))
-
-					funsP["создать объект"](app.idProject, pathObject.."_"..counter[2], sceneData[1]:gsub('\\','\\\\'), not hasImage, type_)
-					scenes[#scenes+1] = {sceneData[1], counter[2]}
-					funsP["записать сохранение"](pathScene, plugins.json.encode(scenes))
-
-					local iEndSlot = #arraySlots
-					while (arraySlots[iEndSlot] and arraySlots[iEndSlot].myGroup.alpha < 0.5) do
-						iEndSlot = iEndSlot - 1
-					end
-
-					local groupScene = display.newGroup()
-					local ySlotPosition = iEndSlot == 1 and display.contentWidth/3.75*2 or 
-										arraySlots[iEndSlot].myGroup.y + arraySlots[iEndSlot].height * 
-										(type(arraySlots[iEndSlot].infoScene[2]) == "string" and 1.5 or 1)
-				
-					groupScene.y = ySlotPosition
-					groupSceneScroll:insert(groupScene)
-
-					local buttonRect = display.newRect(0, 0, display.contentWidth, display.contentWidth/3.75)
-					buttonRect.aimPosY = groupScene.y
-					buttonRect.myGroup = groupScene
-					buttonRect.infoScene = scenes[#scenes]
-					buttonRect.idSlot = #arraySlots + 1
-					arraySlots[buttonRect.idSlot] = buttonRect
-					buttonRect.anchorX = 0
-					buttonRect:setFillColor(57/255, 39/255, 87/255)
-					buttonRect:addEventListener("touch", touchMoveSlot)
-					groupScene:insert(buttonRect)
-
-					local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.9, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
-					strokeIcon.strokeWidth = 3
-					strokeIcon:setStrokeColor(171/255, 219/255, 241/255)
-					strokeIcon:setFillColor(0,0,0,0)
-					groupScene:insert(strokeIcon)
-					if hasImage then
-						
-						local containerIcon = display.newContainer(strokeIcon.width, strokeIcon.height)
-						groupScene:insert(containerIcon)
-						containerIcon.x, containerIcon.y = strokeIcon.x, strokeIcon.y
-				
-						pathMyObjectImage = pathObject.."_"..scenes[#scenes][2].."/image_"..
-										   plugins.json.decode(funsP["получить сохранение"](pathObject.."_"..scenes[#scenes][2].."/images"))[1][2]..".png"
-						local imageIcon = display.newImage(pathMyObjectImage, system.DocumentsDirectory)
-						containerIcon:insert(imageIcon)
-						strokeIcon:toFront()
-				
-						local sizeIconProject = containerIcon.height/imageIcon.height
-						if (imageIcon.width*sizeIconProject < containerIcon.width) then
-							sizeIconProject = containerIcon.width/imageIcon.width
+					local function create(...)
+						local counter = plugins.json.decode(funsP["получить сохранение"](app.idProject.."/counter"))
+						counter[2] = counter[2] + 1
+						funsP["записать сохранение"](app.idProject.."/counter", plugins.json.encode(counter))
+	
+						funsP["создать объект"](app.idProject, pathObject.."_"..counter[2], sceneData[1]:gsub('\\','\\\\'), not hasImage, type_, ...)
+						scenes[#scenes+1] = {sceneData[1], counter[2]}
+						funsP["записать сохранение"](pathScene, plugins.json.encode(scenes))
+	
+						local iEndSlot = #arraySlots
+						while (arraySlots[iEndSlot] and arraySlots[iEndSlot].myGroup.alpha < 0.5) do
+							iEndSlot = iEndSlot - 1
 						end
-						imageIcon.xScale, imageIcon.yScale = sizeIconProject, sizeIconProject
-				
-						buttonRect.containerIcon = containerIcon
+	
+						local groupScene = display.newGroup()
+						local ySlotPosition = iEndSlot == 1 and display.contentWidth/3.75*2 or 
+											arraySlots[iEndSlot].myGroup.y + arraySlots[iEndSlot].height * 
+											(type(arraySlots[iEndSlot].infoScene[2]) == "string" and 1.5 or 1)
+					
+						groupScene.y = ySlotPosition
+						groupSceneScroll:insert(groupScene)
+	
+						local buttonRect = display.newRect(0, 0, display.contentWidth, display.contentWidth/3.75)
+						buttonRect.aimPosY = groupScene.y
+						buttonRect.myGroup = groupScene
+						buttonRect.infoScene = scenes[#scenes]
+						buttonRect.idSlot = #arraySlots + 1
+						arraySlots[buttonRect.idSlot] = buttonRect
+						buttonRect.anchorX = 0
+						buttonRect:setFillColor(57/255, 39/255, 87/255)
+						buttonRect:addEventListener("touch", touchMoveSlot)
+						groupScene:insert(buttonRect)
+	
+						local strokeIcon = display.newRect(buttonRect.x+buttonRect.height*0.9, buttonRect.y, buttonRect.height/1.3, buttonRect.height/1.4)
+						strokeIcon.strokeWidth = 3
+						strokeIcon:setStrokeColor(171/255, 219/255, 241/255)
+						strokeIcon:setFillColor(0,0,0,0)
+						groupScene:insert(strokeIcon)
+						if hasImage then
+							
+							local containerIcon = display.newContainer(strokeIcon.width, strokeIcon.height)
+							groupScene:insert(containerIcon)
+							containerIcon.x, containerIcon.y = strokeIcon.x, strokeIcon.y
+					
+							pathMyObjectImage = pathObject.."_"..scenes[#scenes][2].."/image_"..
+											   plugins.json.decode(funsP["получить сохранение"](pathObject.."_"..scenes[#scenes][2].."/images"))[1][2]..".png"
+							local imageIcon = display.newImage(pathMyObjectImage, system.DocumentsDirectory)
+							containerIcon:insert(imageIcon)
+							strokeIcon:toFront()
+					
+							local sizeIconProject = containerIcon.height/imageIcon.height
+							if (imageIcon.width*sizeIconProject < containerIcon.width) then
+								sizeIconProject = containerIcon.width/imageIcon.width
+							end
+							imageIcon.xScale, imageIcon.yScale = sizeIconProject, sizeIconProject
+					
+							buttonRect.containerIcon = containerIcon
+						end
+						buttonRect.strokeIcon = strokeIcon
+	
+						local nameProject = display.newText({
+							text = scenes[#scenes][1],
+							x = buttonRect.x + buttonRect.height*0.9 + buttonRect.height/1.3/1.5,
+							y = buttonRect.y,
+							width = display.contentWidth/2.12,
+							height = app.fontSize0*1.15,
+							fontSize = app.fontSize0
+						})
+						nameProject.anchorX = 0
+						nameProject:setFillColor(171/255, 219/255, 241/255)
+						groupScene:insert(nameProject)
+	
+						local menuProject = display.newImage("images/menu.png")
+						menuProject.x, menuProject.y, menuProject.width, menuProject.height = 
+							buttonRect.x+buttonRect.width/1.11, buttonRect.y, buttonRect.height/4.5, buttonRect.height/4.5
+						menuProject:setFillColor(171/255, 219/255, 241/255)
+						menuProject.slot = buttonRect
+						menuProject:addEventListener("touch", touchMenuSlot)
+						groupScene:insert(menuProject)
+					
+						local menu2Project = display.newImage("images/menu2.png")
+						buttonRect.menu2 = menu2Project
+						menu2Project.x, menu2Project.y, menu2Project.width, menu2Project.height = 
+							buttonRect.width-buttonRect.width/1.075, buttonRect.y, menuProject.width, menuProject.height
+						menu2Project:setFillColor(0,0,0,0.5)
+						groupScene:insert(menu2Project)
+					
+						buttonRect.nameProject = nameProject
+						buttonRect.menu = menuProject
+						buttonRect.menu2 = menu2Project
+					
+						if (headerNoObjects.alpha > 0.5) then
+							headerNoObjects.alpha = 0
+						end
+					
+						scrollProjects:setScrollHeight(groupSceneScroll.height + display.contentWidth/1.5)
 					end
-					buttonRect.strokeIcon = strokeIcon
-
-					local nameProject = display.newText({
-						text = scenes[#scenes][1],
-						x = buttonRect.x + buttonRect.height*0.9 + buttonRect.height/1.3/1.5,
-						y = buttonRect.y,
-						width = display.contentWidth/2.12,
-						height = app.fontSize0*1.15,
-						fontSize = app.fontSize0
-					})
-					nameProject.anchorX = 0
-					nameProject:setFillColor(171/255, 219/255, 241/255)
-					groupScene:insert(nameProject)
-
-					local menuProject = display.newImage("images/menu.png")
-					menuProject.x, menuProject.y, menuProject.width, menuProject.height = 
-						buttonRect.x+buttonRect.width/1.11, buttonRect.y, buttonRect.height/4.5, buttonRect.height/4.5
-					menuProject:setFillColor(171/255, 219/255, 241/255)
-					menuProject.slot = buttonRect
-					menuProject:addEventListener("touch", touchMenuSlot)
-					groupScene:insert(menuProject)
-				
-					local menu2Project = display.newImage("images/menu2.png")
-					buttonRect.menu2 = menu2Project
-					menu2Project.x, menu2Project.y, menu2Project.width, menu2Project.height = 
-						buttonRect.width-buttonRect.width/1.075, buttonRect.y, menuProject.width, menuProject.height
-					menu2Project:setFillColor(0,0,0,0.5)
-					groupScene:insert(menu2Project)
-				
-					buttonRect.nameProject = nameProject
-					buttonRect.menu = menuProject
-					buttonRect.menu2 = menu2Project
-				
-					if (headerNoObjects.alpha > 0.5) then
-						headerNoObjects.alpha = 0
+					if type_ == "webView" then
+						app.stimor.newInputLine(
+							app.words[626],
+							app.words[627], 
+							function(value) return string.len(value) == 0 and app.words[18] or "" end,
+							"", 
+							function (event)
+								if (event.isOk) then
+									create(event.value)
+								end
+							end
+						)
+					else
+						create()
 					end
-				
-					scrollProjects:setScrollHeight(groupSceneScroll.height + display.contentWidth/1.5)
 				end
 				
 				local function myFunImport(event)
@@ -767,6 +784,23 @@ local function touchCirclePlus(event)
 						onCompleteObject
 					)
 				end
+
+				local function createWebViewObject()
+					local function onCompleteObject(event)
+						if (event.isOk) then
+							event.value = string.gsub(event.value, (utils.isWin and '\r\n' or '\n'), " ")
+							createNewObject({event.value, nil}, false, "webView")
+						end
+					end
+				
+					app.stimor.newInputLine(
+						app.words[29],
+						app.words[14], 
+						function(value) return string.len(value) == 0 and app.words[18] or "" end,
+						"", 
+						onCompleteObject
+					)
+				end
 				
 				local groupSelect = display.newGroup()
 				app.scenes[app.scene][#app.scenes[app.scene]]:insert(groupSelect)
@@ -795,6 +829,17 @@ local function touchCirclePlus(event)
 				local nospriteText = display.newText(groupSelect, app.words[624], nosprite.x, nosprite.y, nil, app.fontSize1)
 				nosprite:addEventListener("tap", function()
 					createEmptyObject()
+					display.remove(groupSelect)
+					groupSelect = nil
+					isBackScene = "back"
+					return true
+				end)
+
+				local webView = display.newRoundedRect(groupSelect, 140, CENTER_Y - 100 + 80, 200, 70, app.roundedRect)
+				webView:setFillColor(57/255, 39/255, 87/255)
+				local webViewText = display.newText(groupSelect, app.words[625], webView.x, webView.y, nil, app.fontSize1)
+				webView:addEventListener("tap", function()
+					createWebViewObject()
 					display.remove(groupSelect)
 					groupSelect = nil
 					isBackScene = "back"

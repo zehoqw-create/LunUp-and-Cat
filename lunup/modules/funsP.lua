@@ -331,7 +331,8 @@ funsP["импортировать изображение"] = function(onComplete
     import.show("image/*",system.pathForFile('importfile.png' , system.DocumentsDirectory), isAndroid and onCompleteImportImage or debugOnComplete)
 end
 
-funsP["создать объект"] = function(idProject, pathObject, nameImage, isEmptyObject, type_)
+funsP["создать объект"] = function(idProject, pathObject, nameImage, isEmptyObject, type_, ...)
+	local args = {...}
     local pathObjectD = system.pathForFile(pathObject, system.DocumentsDirectory)
     local idProjectD = system.pathForFile(idProject, system.DocumentsDirectory)
     local counter = plugins.json.decode(funsP["получить сохранение"](idProject.."/counter"))
@@ -364,6 +365,9 @@ funsP["создать объект"] = function(idProject, pathObject, nameImage
     funsP["записать сохранение"](pathObject.."/variables", "[]")
     funsP["записать сохранение"](pathObject.."/arrays", "[]")
 	funsP["записать сохранение"](pathObject.."/type", type_ or "object")
+	if type_ == "webView" then
+		funsP["записать сохранение"](pathObject.."/link", args[1])
+	end
 end
 
 funsP["копировать проект"] = function(idProject, idCopy)
