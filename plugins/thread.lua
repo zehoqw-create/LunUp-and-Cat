@@ -3,12 +3,22 @@ m.timers = {}
 
 local timer = require('timer')
 m.timer = timer
+timer.allowInteratonsWithinFrame = true
+
+m.cancelAll = function ()
+    timer.cancelAll()
+end
+
+m.cancel = function (t)
+    timer.cancel(t)
+    t = nil
+end
+
 m.start = function (p, object)
     local t
     local listener = function ()
         if object and object.x then
             coroutine.resume(p)
-            print(os.time())
         else
             timer.cancel(t)
         end

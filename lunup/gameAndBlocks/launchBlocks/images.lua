@@ -90,7 +90,8 @@ return {
 
     ask = function (infoBlock, object, images, sounds, make_all_formulas)
         if infoBlock[2][2][2]~=nil and infoBlock[2][3][2]~=nil then
-            local lua = "pcall(function()\n"
+            local lua = "thread.timer.pauseAll()\
+            pcall(function()\n"
             lua = lua.."local function funEditingEnd(event)\
                 "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."var_"..infoBlock[2][2][2].." = event.isOk and event.value or ''\
                 if ("..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2].." ~= nil and "..(infoBlock[2][2][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][2][2]..".x ~= nil) then\
@@ -127,6 +128,7 @@ return {
                 display.remove(back)\
                 display.remove(backText)\
                 display.remove(headerText)\
+                thread.timer.resumeAll()\
             end\
             back:addEventListener('tap', function()\
                 remove()\
