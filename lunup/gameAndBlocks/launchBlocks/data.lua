@@ -205,19 +205,19 @@ return {
         end
     end,
 
-    -- toFrontLayerVar = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o)
-    --     if infoBlock[2][1][2]~=nil then
-    --         local lua = "pcall(function()\n"
-    --         lua = lua..(infoBlock[2][1][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][1][2]..":toFront()"
-    --         return lua.."\nend)"
-    --     end
-    -- end,
+    toFrontLayerVar = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o)
+        if infoBlock[2][1][2]~=nil then
+            local lua = "pcall(function()\n"
+            lua = lua..(infoBlock[2][1][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][1][2]..":toFront()"
+            return lua.."\nend)"
+        end
+    end,
 
-    -- toBackLayerVar = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o)
-    --     if infoBlock[2][1][2]~=nil then
-    --         local lua = "pcall(function()\n"
-    --         lua = lua..(infoBlock[2][1][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][1][2]..":toBack()"
-    --         return lua.."\nend)"
-    --     end
-    -- end,
+    toBackLayerVar = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o)
+        if infoBlock[2][1][2]~=nil then
+            local lua = "pcall(function()\n"
+            lua = lua..(infoBlock[2][1][1]=="globalVariable" and "" or "target.").."varText_"..infoBlock[2][1][2]..":toBack()"
+            return lua.."\nend)"
+        end
+    end,
 }

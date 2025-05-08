@@ -96,7 +96,7 @@ end
 
 function scene_run_game(typeBack, paramsBack)
     BlocksAllHandlers = {}
-    local moduleHandlers = {'data', 'control', 'sounds', 'physics', 'pen', 'images', 'device'}
+    local moduleHandlers = {'data', 'control', 'sounds', 'physics', 'pen', 'images', 'device','textFields'}
     for _, module in ipairs(moduleHandlers) do
         for key, value in pairs(require('lunup.gameAndBlocks.launchBlocks.'..module)) do
             BlocksAllHandlers[key] = value

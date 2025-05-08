@@ -286,6 +286,7 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"foreach",{ {localityArray, nameArray}, {localityVariable,nameVariable}}},
 			{"continueScene",{ {"scenes", nameScene} }},
 			{"runScene",{ {"scenes", nameScene} }},
+			{"deleteScene",{ {"scenes", nameScene} }},
 			{"exitGame"},
 			{"stopScript"},
 		},
@@ -321,6 +322,9 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"setQuareHitbox"},
 			{"setQuareWHHitbox", {{{"number", 100}}, {{"number", 200}}}},
 			{"setCircleHitbox", {{{"number", 200}}}},
+			{"jump", {{{"number", 10}}, {{"number", 20}}}},
+			{"jumpX", {{{"number", 10}}}},
+			{"jumpY", {{{"number", 20}}}},
 			{"showHitboxes"},
 			{"hideHitboxes"},
 		},
@@ -384,6 +388,8 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"readArray",{{localityArray, nameArray}}},
 			{"columnStorageToArray",{{{"number",1}},{{"text",app.words[238]}},{localityArray, nameArray}}},
 			{"getRequest",{{{"text","https://catrob.at/joke"}}, {localityVariable, nameVariable}}},
+			{"toFrontLayerVar",{ {localityVariable, nameVariable} }},
+			{"toBackLayerVar",{ {localityVariable, nameVariable} }},
 		},
 		["device"]={
 			{"openLink",{{{"text","https://catrobat.org/"}}}},
@@ -392,6 +398,28 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"showToast", {{{"text", app.words[164]}}}},
 			{"sleepScreenMode",{{{"onOrOff", "on"}}}},
 			{"setTapDelay", {{{"number", 1}}}},
+			{"setHorizontalOrientation"},
+			{"setVerticalOrientation"},
+		},
+		["textFields"] = {
+			{"ask",{{{"text",app.words[161]}}, {localityVariable, nameVariable}, {"function",nameFunction} }},
+			{"createTextField", { {{"text", app.words[493]}}, {"onOrOff","on"}, {{"number",300}}, {{"number", 100}}, {localityVariable, nameVariable} }},
+			{"deleteTextField", { {{"text", app.words[493]}} }},
+			{"removeCameraTextField", {{{"text", app.words[493]}}}},
+			{"insertCameraTextField", {{{"text", app.words[493]}}}},
+			{"setPositionTextField", {{{"text", app.words[493]}}, {{"number", 100}}, {{"number", 200}}}},
+			{"editPositionTextField", {{{"text", app.words[493]}}, {{"number", 10}}, {{"number", 20}}}},
+			{"setFontSizeTextField", {{{"text", app.words[493]}}, {{"number", 16}}}},
+			{"setTypeInputTextField", {{{"text", app.words[493]}}, {"inputType", "phone"}}},
+			{"setAlignTextField", {{{"text", app.words[493]}}, {"alignText", "center"}}},
+			{"isSecureTextField", {{{"text", app.words[493]}}, {{"onOrOff", "on"}}}},
+			{"placeholderTextField", {{{"text", app.words[493]}}, {{"text", app.words[164]}}}},
+			{"valueTextField", {{{"text", app.words[493]}}, {{"text", app.words[164]}}}},
+			{"setColorTextField", {{{"text", app.words[493]}}, {{"text", "#FF0000"}}}},
+			{"setSelectionTextField", {{{"text", app.words[493]}}, {{"number", 2}}, {{"number", 4}}}},
+			{"getSelectionTextField", {{{"text", app.words[493]}}, {{"globalVariable"}}, {{"globalVariable"}}}},
+			{"setKeyboardToTextField", {{{"text", app.words[493]}}}},
+			{"removeKeyboardToTextField", {{{"text", app.words[493]}}}}
 		},
 		["donat"]={
 		}
@@ -400,8 +428,12 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 end
 
 premBlocks = {
-	playSoundAndWait = true,
-	stopScript = true
+	setTypeInputTextField = true,
+	isSecureTextField = true,
+	sleepScreenMode = true,
+	setSelectionTextField = true,
+	getSelectionTextField = true,
+	setGravityScale = true
 }
 
 

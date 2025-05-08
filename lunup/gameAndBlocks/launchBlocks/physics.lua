@@ -214,23 +214,23 @@ return {
         return lua .. "\nend)"
     end,
 
-    -- jump = function (infoBlock, object, images, sounds, make_all_formulas)
-    --     local lua = "pcall(function()\n"
-    --     lua = lua.."target:setLinearVelocity("..make_all_formulas(infoBlock[2][1], object)..", -"..make_all_formulas(infoBlock[2][2], object)..")"
-    --     return lua .. "\nend)"
-    -- end,
+    jump = function (infoBlock, object, images, sounds, make_all_formulas)
+        local lua = "pcall(function()\n"
+        lua = lua.."target:setLinearVelocity("..make_all_formulas(infoBlock[2][1], object)..", -"..make_all_formulas(infoBlock[2][2], object)..")"
+        return lua .. "\nend)"
+    end,
 
-    -- jumpX = function (infoBlock, object, images, sounds, make_all_formulas)
-    --     local lua = "pcall(function()\n"
-    --     lua = lua.."local vX, vY = target:getLinearVelocity()\ntarget:setLinearVelocity("..make_all_formulas(infoBlock[2][1], object)..", vY)"
-    --     return lua .. "\nend)"
-    -- end,
+    jumpX = function (infoBlock, object, images, sounds, make_all_formulas)
+        local lua = "pcall(function()\n"
+        lua = lua.."local vX, vY = target:getLinearVelocity()\ntarget:setLinearVelocity("..make_all_formulas(infoBlock[2][1], object)..", vY)"
+        return lua .. "\nend)"
+    end,
 
-    -- jumpY = function (infoBlock, object, images, sounds, make_all_formulas)
-    --     local lua = "pcall(function()\n"
-    --     lua = lua.."local vX, vY = target:getLinearVelocity()\ntarget:setLinearVelocity( vX, -"..make_all_formulas(infoBlock[2][1], object)..")"
-    --     return lua .. "\nend)"
-    -- end,
+    jumpY = function (infoBlock, object, images, sounds, make_all_formulas)
+        local lua = "pcall(function()\n"
+        lua = lua.."local vX, vY = target:getLinearVelocity()\ntarget:setLinearVelocity( vX, -"..make_all_formulas(infoBlock[2][1], object)..")"
+        return lua .. "\nend)"
+    end,
 
     setGravityScale = function (infoBlock, object, images, sounds, make_all_formulas)
         local lua = "pcall(function()\n"

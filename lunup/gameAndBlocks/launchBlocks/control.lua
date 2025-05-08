@@ -199,6 +199,16 @@ return {
         return lua
     end,
 
+    ["deleteScene"] = function (infoBlock, object, images, sounds, make_all_formulas)
+        if infoBlock[2][1][2]==nil then
+            return ''
+        end
+        local lua = "pcall(function()\n"
+        lua = lua.."deleteScene("..infoBlock[2][1][2]..")"
+        lua = lua.."\nend)"
+        return lua
+    end,
+
     ["exitGame"] = function ()
         local lua = "pcall(function()\n"
         lua = lua.."native.setProperty( \"androidSystemUiVisibility\", \"default\" )\ntimer.new(0, function()\ndisplay.save(mainGroup,{ filename=myScene..'/icon.png', baseDir=system.DocumentsDirectory, backgroundColor={1,1,1,1}})\nfunBackListener2({keyName='deleteBack', phase='up'})\nend)"
@@ -330,36 +340,6 @@ return {
             return lua.."\nend)"
         end
     end,
-
-    ["broadcastFunctionAndWait"] = function (infoBlock, object, images, sounds, make_all_formulas)
-        if infoBlock[2][1][2]~=nil then
-            local lua = "pcall(function()\n"
-            lua = lua.."broadcastFunction('fun_"..infoBlock[2][1][2].."')"
-            return lua.."\nend)"
-        end
-    end,
-
-    ["addNameClone"] = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o)
-        local lua = "pcall(function()\n"
-        lua = lua.."target.myName = "..make_all_formulas(infoBlock[2][1], object).."\ntableNamesClones[target.myName] = target\ntarget.nameObject = 'object_"..obj_id.."'"
-        return lua.."\nend)"
-    end,
-
-    ["broadcastFun>nameClone"] = function (infoBlock, object, images, sounds, make_all_formulas)
-        if infoBlock[2][2][2]~=nil then
-            local lua = "pcall(function()\n"
-            lua = lua..
-            "local function broadcastFunction(nameFunction)\
-                local value = tableNamesClones["..make_all_formulas(infoBlock[2][1], object).."]\
-                local key = value.nameObject\
-                for i=1, #events_function[key][nameFunction] do\
-                    events_function[key][nameFunction][i](value)\
-                end\
-            end\
-            broadcastFunction('fun_"..infoBlock[2][2][2].."')"
-            return lua.."\nend)"
-        end
-    end,
     
     ["whenTheTruth"] = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o, mainGroup, videos)
         local lua = "pcall(function()\n"
@@ -369,4 +349,6 @@ return {
         local lua = "pcall(function()\n"
         return lua.."\nend)"
     end,
+
+    
 }
