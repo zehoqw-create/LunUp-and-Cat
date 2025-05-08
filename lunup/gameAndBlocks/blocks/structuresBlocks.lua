@@ -381,6 +381,7 @@ _G["allBlocks"] = {
 	["setTapDelay"]={"block", "blocks/block_gold_2.png", { {{"text", app.words[622]}}, {{"cell", nil, 5}}}, 109, 142, false},
 	["setHorizontalOrientation"]={"block", "blocks/block_gold_1.png", { {{"text",app.words[457]}} }, 109, 88, false},
 	["setVerticalOrientation"]={"block", "blocks/block_gold_1.png", { {{"text",app.words[458]}} }, 109, 88, false},
+	["runLua"]={"block", "blocks/block_gold_2.png",  {{{"text", app.words[387]}}, {{"cell", nil, 8}}}, 109, 142, false},
 
 	["createTextField"]={"block", "blocks/block_green_3_6.png", { {{"text", app.words[488]}}, {{"text", app.words[492]..":"}, {"cell",nil,3}}, {{"text", app.words[489]}}, {{"onOrOff"}}, {{"text",app.words[490]..":"}, {"cell", nil, 1.5}, {"text", app.words[491]..":"}, {"cell", nil, 1.5}}, {{"text", app.words[162]}}, {{"variables"}} }, 109, 350, false},
 	["deleteTextField"]={"block", "blocks/block_green_2.png", { {{"text", app.words[506]}}, {{"text", app.words[492]}, {"cell", nil, 3}} }, 109, 142, false},

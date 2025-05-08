@@ -400,6 +400,7 @@ local function f(localityVariable, nameVariable, localityArray, nameArray, nameF
 			{"setTapDelay", {{{"number", 1}}}},
 			{"setHorizontalOrientation"},
 			{"setVerticalOrientation"},
+			{"runLua",{ {{"text", 'local a = display.newRect(100, 100, 50, 50); a:setFillColor(1, 0, 0)'}} }},
 		},
 		["textFields"] = {
 			{"ask",{{{"text",app.words[161]}}, {localityVariable, nameVariable}, {"function",nameFunction} }},
@@ -433,7 +434,8 @@ premBlocks = {
 	sleepScreenMode = true,
 	setSelectionTextField = true,
 	getSelectionTextField = true,
-	setGravityScale = true
+	setGravityScale = true,
+	runLua = true
 }
 
 

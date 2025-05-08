@@ -340,15 +340,30 @@ return {
             return lua.."\nend)"
         end
     end,
-    
-    ["whenTheTruth"] = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o, mainGroup, videos)
-        local lua = "pcall(function()\n"
-        return lua.."\nend)"
-    end,
-    ["endWhenTheTruth"] = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o, mainGroup, videos)
-        local lua = "pcall(function()\n"
-        return lua.."\nend)"
-    end,
 
-    
+    ["runLua"] = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o, mainGroup, videos)
+        local lua = "pcall(function()\n"
+        local code = make_all_formulas(infoBlock[2][1], object)
+        lua = lua .. 'local p1 = '..code..'\
+        p1 = plugins.utf8.gsub(p1, \'setfenv\', \'print\'); p1 = plugins.utf8.gsub(p1, \'loadstring\', \'print\')\
+        p1 = plugins.utf8.gsub(p1, \'currentStage\', \'fps\');p1 = plugins.utf8.gsub(p1, \'getCurrentStage\', \'getDefault\')\
+        p1 = plugins.utf8.gsub(p1, \'setFocus\', \'display.getCurrentStage():setFocus\'); p1 = plugins.utf8.gsub(p1, \'settingsSave.txt\', \'\')\
+        \
+        __GetGlobalData = function()\
+            return {\
+            math = math, os = os, transition = transition, tostring = tostring, tonumber = tonumber,\
+            assert = assert, collectgarbage = collectgarbage, display = display,\
+            native = native, coroutine = coroutine, ipairs = ipairs, network = network, pcall = pcall, print = print,\
+            string = string, xpcall = xpcall, table = table, unpack = unpack, setmetatable = setmetatable, next = next,\
+            graphics = graphics, system = system, rawequal = rawequal,  getmetatable = getmetatable, timer = timer,\
+            newproxy = newproxy, metatable = metatable, rawset = rawset, type = type,\
+            audio = audio, pairs = pairs, select = select, rawget = rawget, Runtime = Runtime, error = error,\
+            utf8 = require("plugin.utf8"), app = app, utils = utils, object = target\
+            \
+            }\
+        end\
+        loadstring("\\nlocal G = {};\\nfor key, value in pairs(__GetGlobalData()) do\\nG[key] = value\\nend\\nsetfenv(1, G)\\n"..p1)()\
+        '
+        return lua.."\nend)"
+    end,
 }
