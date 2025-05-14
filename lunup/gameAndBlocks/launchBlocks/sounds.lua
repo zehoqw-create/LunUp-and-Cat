@@ -54,4 +54,15 @@ return {
         lua = lua.."audio.setVolume(audio.getVolume() + "..volume.."/100 )"
         return lua.."\nend)"
     end,
+
+    seekSound = function (infoBlock, object, images, sounds, make_all_formulas)
+        if infoBlock[2][1][2] ~= nil then
+            local lua = "pcall(function()\n"
+            local time = make_all_formulas(infoBlock[2][2], object)
+            lua = lua.."if playSounds["..infoBlock[2][1][2].."] and playingSounds["..infoBlock[2][1][2].."] then\n"
+            lua = lua.."audio.seek("..time.." * 1000, playingSounds["..infoBlock[2][1][2].."])\n"
+            lua = lua.."end"
+            return lua.."\nend)"
+        end
+    end,
 }

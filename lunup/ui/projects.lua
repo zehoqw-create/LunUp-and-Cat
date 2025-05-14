@@ -841,7 +841,7 @@ local function touchCircleTelegram(event)
 		transition.to(event.target.circleAlpha, {alpha=0, xScale=0.75, yScale=0.75, time=100})
 		display.getCurrentStage():setFocus(event.target, nil)
 
-		system.openURL(event.target == circleTelegram and "https://t.me/pocket_up" or "https://discord.gg/")
+		system.openURL(event.target == circleTelegram and "https://t.me/lunupAndCat" or "https://discord.gg/")
 	end
 	return(true)
 end

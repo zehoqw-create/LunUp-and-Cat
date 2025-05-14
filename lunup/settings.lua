@@ -19,6 +19,7 @@ plugins.json = require("json")
 plugins.lfs = require("lfs")
 plugins.physics = require("physics")
 plugins.orientation = require('plugin.orientation')
+plugins.perlin = require("plugins.noise")
 
 app.words = require("lunup.modules.loadLanguage")
 

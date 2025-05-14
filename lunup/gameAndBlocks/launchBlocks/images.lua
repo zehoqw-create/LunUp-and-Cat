@@ -19,6 +19,44 @@ return {
         end
     end,
 
+    setMask = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o)
+        if #images > 0 and infoBlock[2][1][2] ~= nil then
+            local image = infoBlock[2][1][2]
+
+            if image ~= nil then
+                local lua = "pcall(function()\n"
+
+                lua = lua .. "local maskImageId = nil\n"
+                lua = lua .. "for i = 1, #listImages do\n"
+                lua = lua .. "  if (listImages[i] == " .. image .. ") then\n"
+                lua = lua .. "    maskImageId = i\n"
+                lua = lua .. "    break\n"
+                lua = lua .. "  end\n"
+                lua = lua .. "end\n"
+
+                lua = lua .. "if (maskImageId ~= nil) then\n"
+                lua = lua .. "  local maskPath = '" .. app.idProject .. "/scene_" .. scene_id .. "/object_" .. obj_id .. "/image_" .. image .. ".png'\n"
+                lua = lua .. "  local mask = graphics.newMask(maskPath, system.DocumentsDirectory)\n"
+                lua = lua .. "  target:setMask(mask)\n"
+                lua = lua .. "  target.maskPath = maskPath\n"
+
+                lua = lua .. "  target.maskX = 0\n"
+                lua = lua .. "  target.maskY = 0\n"
+                lua = lua .. "  target.maskScaleX = 1.0\n"
+                lua = lua .. "  target.maskScaleY = 1.0\n"
+                
+                lua = lua .. "end\n"
+                return lua .. "end)"
+            end
+        end
+
+        return "pcall(function() target:setMask(nil) target.maskPath = nil end)"
+    end,
+
+    removeMask = function ()
+        return "pcall(function() target:setMask(nil) target.maskPath = nil end)"
+    end,
+
     setImageToId = function (infoBlock, object, images, sounds, make_all_formulas, obj_id, obj_path, scene_id, scene_path, options, o)
         if #images > 0 then
             local image = make_all_formulas(infoBlock[2][1], object)

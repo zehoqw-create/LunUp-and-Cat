@@ -96,7 +96,7 @@ end
 
 function scene_run_game(typeBack, paramsBack)
     BlocksAllHandlers = {}
-    local moduleHandlers = {'data', 'control', 'sounds', 'physics', 'pen', 'images', 'device','textFields'}
+    local moduleHandlers = {'data', 'control', 'sounds', 'physics', 'pen', 'images', 'device','textFields','miniScenes'}
     for _, module in ipairs(moduleHandlers) do
         for key, value in pairs(require('lunup.gameAndBlocks.launchBlocks.'..module)) do
             BlocksAllHandlers[key] = value
@@ -126,6 +126,7 @@ function scene_run_game(typeBack, paramsBack)
     function showOldScene()
         app.words = require("lunup.modules.loadLanguage")
         native.setProperty("windowMode", "normal")
+        display.setDrawMode( 'default' )
         display.setDefault("background", 42/255, 24/255, 72/255)
         system.setIdleTimer(true)
         system.setTapDelay(0)
@@ -201,6 +202,9 @@ Lua = Lua..
 [==[
 -- Функции покет апа
 local lunupFuns = {}
+lunupFuns.perlinNoise = function(x, y, seed)
+    return plugins.perlin.new(x, y, seed)
+end
 lunupFuns.sin = function(v)
     return(math.sin(math.rad(v)))
 end

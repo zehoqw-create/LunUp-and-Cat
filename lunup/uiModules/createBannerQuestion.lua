@@ -118,7 +118,7 @@ bannerPremium = function ()
 	end)
 	timer.performWithDelay(100, function ()
 		rect:addEventListener('tap', function ()
-			system.openURL('https://boosty.to/maxdil/purchase/3014811?ssource=DIRECT&share=subscription_link')
+			system.openURL('https://boosty.to/maxdil/single-payment/donation/639892/target?share=target_link')
 		end)
 	end)
 	rect:setFillColor({
