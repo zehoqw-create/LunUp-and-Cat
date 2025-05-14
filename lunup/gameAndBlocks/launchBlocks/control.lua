@@ -248,7 +248,7 @@ return {
         pcall(function()\
         if target.maskPath then\
             local maskPath = target.maskPath\
-            local mask = graphics.newMask(maskPath, system.DocumentsDirectory)\
+            local mask = graphics.newMask(maskPath, system.TemporaryDirectory)\
             myClone:setMask(mask)\
             myClone.maskX = target.maskX or 0\
             myClone.maskY = target.maskY or 0\

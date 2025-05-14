@@ -35,8 +35,8 @@ return {
                 lua = lua .. "end\n"
 
                 lua = lua .. "if (maskImageId ~= nil) then\n"
-                lua = lua .. "  local maskPath = '" .. app.idProject .. "/scene_" .. scene_id .. "/object_" .. obj_id .. "/image_" .. image .. ".png'\n"
-                lua = lua .. "  local mask = graphics.newMask(maskPath, system.DocumentsDirectory)\n"
+                lua = lua .. "  local maskPath = '" .. app.idProject .. "_scene_" .. scene_id .. "_object_" .. obj_id .. "_image_" .. image .. ".png'\n"
+                lua = lua .. "  local mask = graphics.newMask(maskPath, system.TemporaryDirectory)\n"
                 lua = lua .. "  target:setMask(mask)\n"
                 lua = lua .. "  target.maskPath = maskPath\n"
 

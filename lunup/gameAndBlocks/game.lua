@@ -517,7 +517,10 @@ function scene_]]..scene_id..[[()
                 local listImages = {
             ]=]
 
+            --print(plugins.json.encode(obj_images))
             for i=1, #obj_images do
+                os.copy(system.pathForFile(app.idProject .. "/scene_" .. scene_id .. "/object_" .. obj_id .. "/image_" .. obj_images[i][2] .. ".png", system.DocumentsDirectory),
+            system.pathForFile(app.idProject .. "_scene_" .. scene_id .. "_object_" .. obj_id .. "_image_" .. obj_images[i][2] .. ".png", system.TemporaryDirectory))
                 Lua = Lua..(i == 1 and "" or ",")..obj_images[i][2]
             end
             Lua = Lua.."}\nlocal listNamesImages = {"
