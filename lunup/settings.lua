@@ -20,6 +20,7 @@ plugins.lfs = require("lfs")
 plugins.physics = require("physics")
 plugins.orientation = require('plugin.orientation')
 plugins.perlin = require("plugins.noise")
+plugins.particle = require("Emitter.particleDesigner")
 
 app.words = require("lunup.modules.loadLanguage")
 

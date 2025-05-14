@@ -96,7 +96,7 @@ end
 
 function scene_run_game(typeBack, paramsBack)
     BlocksAllHandlers = {}
-    local moduleHandlers = {'data', 'control', 'sounds', 'physics', 'pen', 'images', 'device','textFields','miniScenes'}
+    local moduleHandlers = {'data', 'control', 'sounds', 'physics', 'pen', 'images', 'device','textFields','miniScenes','particles'}
     for _, module in ipairs(moduleHandlers) do
         for key, value in pairs(require('lunup.gameAndBlocks.launchBlocks.'..module)) do
             BlocksAllHandlers[key] = value
@@ -415,6 +415,7 @@ function scene_]]..scene_id..[[()
     local events_changeBackground = {}
     local events_function = {}
     local events_whenTheTruth = {}
+    local particles = {}
     
     local function broadcastFunction(nameFunction)
         for key, value in pairs(objects) do

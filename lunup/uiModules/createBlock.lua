@@ -157,7 +157,7 @@ end
 				button.block = group
 				button.typeParameter = "cell"
 				xF = button.x+button.width+display.contentWidth/30
-			elseif (formula[1]=="function" or formula[1]=="objects" or formula[1]=="backgrounds" or formula[1]=="variables" or formula[1]=="arrays" or formula[1]=="scenes" or formula[1]=="scripts" or formula[1]=="goTo" or formula[1]=="typeRotate" or formula[1]=="sounds" or formula[1]=="images" or formula[1]=="effectParticle" or formula[1]=="onOrOff" or formula[1]=="alignText" or formula[1]=="isDeleteFile" or formula[1]=="typeBody" or formula[1]=="GL" or formula[1]=="inputType") then
+			elseif (formula[1]=="function" or formula[1]=="objects" or formula[1]=="backgrounds" or formula[1]=="variables" or formula[1]=="arrays" or formula[1]=="scenes" or formula[1]=="scripts" or formula[1]=="goTo" or formula[1]=="typeRotate" or formula[1]=="sounds" or formula[1]=="images" or formula[1]=="effectParticle" or formula[1]=="onOrOff" or formula[1]=="alignText" or formula[1]=="isDeleteFile" or formula[1]=="typeBody" or formula[1]=="GL" or formula[1]=="inputType" or formula[1]=="particle") then
 				yF = yF-display.contentWidth/40
 				local button = display.newImage("images/notVisible.png")
 				button.x, button.y, button.width, button.height = -display.screenOriginX+display.contentWidth/25, yF, display.contentWidth/2.625*2, display.contentWidth/15
@@ -312,6 +312,41 @@ end
 						["no-emoji"] = app.words[504],
 					}
 					nameFunction = types[formula[2][2]]
+				elseif (formula[1]=="particle") then
+				    local particleFiles = {
+				        "air_stars.json",
+				        "aurora_3b.json",
+				        "big_orange_flame.json",
+				        "blood.json",
+				        "blue_galaxy.json",
+				        "blue_vortex_field.json",
+				        "bp_firefly_final.json",
+				        "comet.json",
+				        "crazy_blue.json",
+				        "electrons.json",
+				        "fireplace_flame.json",
+				        "giving.json",
+				        "heart04.json",
+				        "hongshizi.json",
+				        "im_seeing_stars.json",
+				        "lava_flow.json",
+				        "my_galaxy.json",
+				        "smoke.json",
+				        "trippy.json",
+				        "water_fountain.json",
+				        "waterfall.json",
+				        "wdemitter.json"
+				    }
+
+				    local particleIndex = nil
+				    for i = 1, #particleFiles do
+				        if particleFiles[i] == formula[2][2] then
+				            particleIndex = i
+				            break
+				        end
+				    end
+	
+				    nameFunction = particleFiles[particleIndex] or "Unknown Particle"
 				end
 
 				local header = display.newText(nameFunction, button.x-button.width/2, yF, nil, app.fontSize1)

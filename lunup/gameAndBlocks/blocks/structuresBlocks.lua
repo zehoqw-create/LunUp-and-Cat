@@ -423,6 +423,19 @@ _G["allBlocks"] = {
 	["setAlphaMiniScene"]={"block", "blocks/block_yellow_3.png", { {{"text", app.words[547]}}, {{"text", app.words[529]..":"}, {"cell", nil, 3}}, {{"text", app.words[328]..":"}, {"cell", nil, 1.5},{"text","%"}} }, 109, 188, false},
 	["editAlphaMiniScene"]={"block", "blocks/block_yellow_3.png", { {{"text", app.words[548]}}, {{"text", app.words[529]..":"}, {"cell", nil, 3}}, {{"text", app.words[328]..":"}, {"cell", nil, 1.5},{"text","%"}} }, 109, 188, false},
 
+	["createParticle"] = {"block", "blocks/block_olive_3.png", {{{"text", app.words[634]},}, {{"text", app.words[635]}, {"cell", nil, 3}}, {{"particle"}}}, 109, 188, false},
+	["startStopParticle"] = {"block", "blocks/block_olive_3.png", {{{"text", app.words[636]},}, {{"text", app.words[635]}, {"cell", nil, 3}}, {{"onOrOff"}}}, 109, 188, false},
+	["setPositionParticle"]={"block", "blocks/block_olive_3.png",{ {{"text",app.words[426]}},{{"text",app.words[399]},{"cell",nil,4}},{{"text",app.words[59]..":"},{"cell",nil,1.5},{"text",app.words[60]..":"},{"cell",nil,1.5}} }, 109, 188, false},
+	["deleteParticle"]={"block", "blocks/block_olive_2.png", { {{"text",app.words[424]}}, {{"text",app.words[399]},{"cell",nil,4}} }, 109, 142, false},
+	["stopParticle"]={"block", "blocks/block_olive_2.png", { {{"text",app.words[637]}}, {{"text",app.words[399]},{"cell",nil,4}} }, 109, 142, false},
+	["deleteAllParticles"]={"block", "blocks/block_olive_1.png", { {{"text",app.words[425]}} }, 109, 88, false},
+	["setRotateParticle"]={"block", "blocks/block_olive_3.png",{ {{"text",app.words[638]}},{{"text",app.words[430]},{"cell",nil,4}},{{"cell",nil,2}} },109,188,false},
+	["setSizeParticle"]={"block", "blocks/block_olive_3.png",{ {{"text",app.words[639]}},{{"text",app.words[430]},{"cell",nil,4}},{{"cell",nil,2},{"text","%"}} },109,188,false},
+	["setSpeedParticle"]={"block", "blocks/block_olive_3.png",{ {{"text",app.words[640]}},{{"text",app.words[430]},{"cell",nil,4}},{{"cell",nil,2}} },109,188,false},
+	["toFrontLayerParticle"]={"block", "blocks/block_olive_1.png", { {{"text",app.words[641]}} }, 109, 88, false},
+	["setLayerParticle"]={"block", "blocks/block_olive_1.png", { {{"text", app.words[642]}, {"cell", nil, 1.5}} }, 109, 88, false},
+	["particleSceneInsertCamera"]={"block", "blocks/block_olive_2.png", { {{"text", app.words[643]}}, {{"text", app.words[635]..":"}, {"cell", nil, 3}} }, 109, 142, false},
+	["particleSceneRemoveCamera"]={"block", "blocks/block_olive_2.png", { {{"text", app.words[644]}}, {{"text", app.words[635]..":"}, {"cell", nil, 3}} }, 109, 142, false},
 }
 
 local oldallBlocks = {

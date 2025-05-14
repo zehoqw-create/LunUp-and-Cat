@@ -112,13 +112,17 @@ function scene_scripts(headerBar, pathObject, infoSceneObjects)
                                 else
                                     scene_formula_editor(objectsParameter, event.target.block.id, event.target.idParameter,blocks)
                                 end
-                            elseif (idParameter=="variables" or idParameter=="arrays" or idParameter=="function" or idParameter=="objects" or idParameter=="backgrounds" or idParameter=="images" or idParameter=="sounds" or idParameter=="scenes" or idParameter=="scripts" or idParameter == "goTo" or idParameter == "typeRotate" or idParameter == "effectParticle" or idParameter == "onOrOff" or idParameter == "alignText" or idParameter == "isDeleteFile" or idParameter == "typeBody" or idParameter=="GL" or idParameter=="inputType") then
+                            elseif (idParameter=="variables" or idParameter=="arrays" or idParameter=="function" or idParameter=="objects" or idParameter=="backgrounds" or idParameter=="images" or idParameter=="sounds" or idParameter=="scenes" or idParameter=="scripts" or idParameter == "goTo" or idParameter == "typeRotate" or idParameter == "effectParticle" or idParameter == "onOrOff" or idParameter == "alignText" or idParameter == "isDeleteFile" or idParameter == "typeBody" or idParameter=="GL" or idParameter=="inputType" or idParameter=="particle") then
                                 local tableAnswers = {}
                                 -- {вызуальный ответ, {тип функции, значение}}
                                 local functionOnComplete = nil
                                 -- в функции вызывается таблица {тип функции, значение}
 
-                                if (idParameter=="scripts" or idParameter == "typeRotate" or idParameter == "effectParticle" or idParameter == "onOrOff" or idParameter == "alignText" or idParameter == "isDeleteFile" or idParameter == "typeBody" or idParameter=="GL" or idParameter=="inputType") then
+                                if (idParameter=="scripts" or idParameter == "typeRotate" or idParameter == "effectParticle" or idParameter == "onOrOff" or idParameter == "alignText" or idParameter == "isDeleteFile" or idParameter == "typeBody" or idParameter=="GL" or idParameter=="inputType" or idParameter=="particle") then
+                                    -- local file = io.open(system.pathForFile("Emitter/particleeffects.json", system.ResourceDirectory), "r")
+                                    -- local particles = file:read("*a")
+                                    -- file:close()
+                                    -- print(particles)
                                     local allAnswers = {
                                         scripts = {{app.words[114], {"scripts","thisScript"}},{app.words[115], {"scripts","allScripts"}},{app.words[116], {"scripts","otherScripts"}}},
                                         typeRotate = {{app.words[134],{"typeRotate","true"}},{app.words[135],{"typeRotate","false"}}},
@@ -129,6 +133,30 @@ function scene_scripts(headerBar, pathObject, infoSceneObjects)
                                         typeBody={{app.words[393],{"typeBody","dynamic"}}, {app.words[394],{"typeBody","static"}}, {app.words[395],{"typeBody","noPhysic"}}},
                                         GL={{"GL_ONE",{"GL","GL_ONE"}},{"GL_ZERO",{"GL","GL_DST_COLOR"}},{"GL_ONE_MINUS_DST_COLOR",{"GL","GL_ONE_MINUS_DST_COLOR"}},{"GL_SRC_ALPHA",{"GL","GL_SRC_ALPHA"}},{"GL_ONE_MINUS_SRC_ALPHA",{"GL","GL_ONE_MINUS_SRC_ALPHA"}},{"GL_DST_ALPHA",{"GL","GL_DST_ALPHA"}},{"GL_ONE_MINUS_DST_ALPHA",{"GL","GL_ONE_MINUS_DST_ALPHA"}},{"GL_SRC_ALPHA_SATURATE",{"GL","GL_SRC_ALPHA_SATURATE"}},{"GL_SRC_COLOR",{"GL","SRC_COLOR"}},{"GL_ONE_MINUS_SRC_COLOR",{"GL","GL_ONE_MINUS_SRC_COLOR"}}},
                                         inputType={{app.words[498], {"inputType", "default"}}, {app.words[499], {"inputType", "number"}}, {app.words[500], {"inputType", "decimal"}}, {app.words[501], {"inputType", "phone"}}, {app.words[502], {"inputType", "url"}}, {app.words[503], {"inputType", "email"}}, {app.words[504], {"inputType", "no-emoji"}}},
+                                        particle = {
+                                            {"air_stars", {"particles", "air_stars.json"}},
+                                            {"aurora_3b", {"particles", "aurora_3b.json"}},
+                                            {"big_orange_flame", {"particles", "big_orange_flame.json"}},
+                                            {"blood", {"particles", "blood.json"}},
+                                            {"blue_galaxy", {"particles", "blue_galaxy.json"}},
+                                            {"blue_vortex_field", {"particles", "blue_vortex_field.json"}},
+                                            {"bp_firefly_final", {"particles", "bp_firefly_final.json"}},
+                                            {"comet", {"particles", "comet.json"}},
+                                            {"crazy_blue", {"particles", "crazy_blue.json"}},
+                                            {"electrons", {"particles", "electrons.json"}},
+                                            {"fireplace_flame", {"particles", "fireplace_flame.json"}},
+                                            {"giving", {"particles", "giving.json"}},
+                                            {"heart04", {"particles", "heart04.json"}},
+                                            {"hongshizi", {"particles", "hongshizi.json"}},
+                                            {"im_seeing_stars", {"particles", "im_seeing_stars.json"}},
+                                            {"lava_flow", {"particles", "lava_flow.json"}},
+                                            {"my_galaxy", {"particles", "my_galaxy.json"}},
+                                            {"smoke", {"particles", "smoke.json"}},
+                                            {"trippy", {"particles", "trippy.json"}},
+                                            {"water_fountain", {"particles", "water_fountain.json"}},
+                                            {"waterfall", {"particles", "waterfall.json"}},
+                                            {"wdemitter", {"particles", "wdemitter.json"}}
+                                        },
                                     }
                                     tableAnswers = allAnswers[idParameter]
                                     functionOnComplete = function (answer)
